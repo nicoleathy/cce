@@ -26,13 +26,6 @@ Tasks live under `lm_eval/tasks/{arc,commonsense_qa,hellaswag,piqa,winogrande}/`
 `winogrande_orig` is a matched baseline under the same prompt, so Orig–CCE
 reflects only the NOTA substitution.
 
-## Install
-
-```bash
-git clone https://github.com/<user>/<repo>.git   # TODO: repo URL
-cd <repo> && pip install -e .
-```
-
 ## Usage
 
 The NOTA substitution is controlled by `CCE_SEED` (read in each task's
