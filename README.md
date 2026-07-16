@@ -22,10 +22,6 @@ High GR with high FP = the model picks NOTA *indiscriminately*, not genuine
 answer-absence reasoning — a confound aggregate accuracy hides. Tasks emit
 `acc`, `acc_gold_removed`, `acc_distractor_removed`, `nota_false_positive`.
 
-Tasks live under `lm_eval/tasks/{arc,commonsense_qa,hellaswag,piqa,winogrande}/`.
-`winogrande_orig` is a matched baseline under the same prompt, so Orig–CCE
-reflects only the NOTA substitution.
-
 ## Usage
 
 The NOTA substitution is controlled by `CCE_SEED` (read in each task's
