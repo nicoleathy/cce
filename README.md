@@ -8,6 +8,7 @@ can reflect option *ranking* rather than *verification*. CCE replaces one
 option with **"None of the Above" (NOTA)**: if the replaced option was the
 gold answer, NOTA becomes correct; otherwise the label is unchanged — probing
 whether a model can tell when no option is right, with no new annotation.
+
 Built on [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness).
 
 ## Metrics
@@ -16,17 +17,19 @@ Each item is one of two regimes, reported separately:
 
 - **GR** (gold-removed): correct option replaced; NOTA is the answer.
 - **DR** (distractor-removed): wrong option replaced; original answer remains.
-- **FP**: fraction of DR items where the model wrongly picks NOTA.
 
-High GR with high FP = the model picks NOTA *indiscriminately*, not genuine
-answer-absence reasoning — a confound aggregate accuracy hides. Tasks emit
-`acc`, `acc_gold_removed`, `acc_distractor_removed`, `nota_false_positive`.
+High GR paired with low DR = the model picks NOTA *indiscriminately*, not
+genuine answer-absence reasoning — a confound aggregate accuracy hides. Tasks
+emit `acc`, `acc_gold_removed`, and `acc_distractor_removed`.
 
 ## Usage
 
 The NOTA substitution is controlled by `CCE_SEED` (read in each task's
 `utils.py`), separately from `--seed`. Vary it across runs to get the ±
-reported in the paper.
+reported in the paper. `winogrande_orig` is the matched MCQA baseline for
+WinoGrande described in the paper (WinoGrande is natively sentence-completion,
+so it is cast into MCQA under an identical prompt for a clean Orig–CCE
+comparison).
 
 ```bash
 MODEL=Qwen/Qwen3-8B
@@ -39,4 +42,4 @@ for s in 0 1 2 3 4; do
 done
 ```
 
-Use `--num_fewshot 5` for 5-shot CoT
+Use `--num_fewshot 5` for 5-shot CoT.
