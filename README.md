@@ -6,7 +6,7 @@ Evaluation of Multiple-Choice Benchmarks."**
 Standard MCQA assumes the correct answer is always present, so high scores
 can reflect option *ranking* rather than *verification*. CCE replaces one
 option with **"None of the Above" (NOTA)**: if the replaced option was the
-gold answer, NOTA becomes correct; otherwise the label is unchanged — probing
+gold answer, NOTA becomes correct; otherwise the label is unchanged, probing
 whether a model can tell when no option is right, with no new annotation.
 
 Built on [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness).
@@ -18,8 +18,8 @@ Each item is one of two regimes, reported separately:
 - **GR** (gold-removed): correct option replaced; NOTA is the answer.
 - **DR** (distractor-removed): wrong option replaced; original answer remains.
 
-High GR paired with low DR = the model picks NOTA *indiscriminately*, not
-genuine answer-absence reasoning — a confound aggregate accuracy hides. Tasks
+High GR paired with low DR means the model picks NOTA *indiscriminately*, not
+genuine answer-absence reasoning, a confound aggregate accuracy hides. Tasks
 emit `acc`, `acc_gold_removed`, and `acc_distractor_removed`.
 
 ## Usage
@@ -28,7 +28,7 @@ The NOTA substitution is controlled by `CCE_SEED` (read in each task's
 `utils.py`), separately from `--seed`. Vary it across runs to get the ±
 reported in the paper. `winogrande_orig` is the matched MCQA baseline for
 WinoGrande described in the paper (WinoGrande is natively sentence-completion,
-so it is cast into MCQA under an identical prompt for a clean Orig–CCE
+so it is cast into MCQA under an identical prompt for a clean Orig vs CCE
 comparison).
 
 ```bash
