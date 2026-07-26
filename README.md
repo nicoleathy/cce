@@ -24,8 +24,7 @@ emit `acc`, `acc_gold_removed`, and `acc_distractor_removed`.
 
 ## Usage
 
-The NOTA substitution is controlled by `CCE_SEED` (read in each task's
-`utils.py`), separately from `--seed`. Vary it across runs to get the ±
+The NOTA substitution is controlled by `CCE_SEED`, separately from `--seed`. Vary it across runs to get the ±
 reported in the paper. `winogrande_orig` is the matched MCQA baseline for
 WinoGrande described in the paper (WinoGrande is natively sentence-completion,
 so it is cast into MCQA under an identical prompt for a clean Orig vs CCE
