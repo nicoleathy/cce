@@ -1,0 +1,64 @@
+# tag:
+#   - multiple_choice
+# task: hellaswag
+# dataset_path: hellaswag
+# dataset_name: null
+# output_type: multiple_choice
+# training_split: train
+# validation_split: validation
+# test_split: null
+
+# # Point to your updated processing function
+# process_docs: !function utils.process_docs
+
+# # Updated fields based on your output dict from _process_doc()
+# doc_to_text: "Question: {{ query }}\nA. {{ choices[0] }}\nB. {{ choices[1] }}\nC. {{ choices[2] }}\nD. {{ choices[3] }}\nAnswer:"
+# doc_to_choice: ["A", "B", "C", "D"]
+# doc_to_target: gold
+
+# metric_list:
+#   - metric: acc
+#     aggregation: mean
+#     higher_is_better: true
+#   - metric: acc_norm
+#     aggregation: mean
+#     higher_is_better: true
+
+# metadata:
+#   version: 1.0
+
+# dataset_kwargs:
+#   trust_remote_code: true
+
+tag:
+  - multiple_choice
+task: hellaswag
+dataset_path: Rowan/hellaswag
+dataset_name: null
+output_type: multiple_choice
+training_split: train
+validation_split: validation
+test_split: null
+process_docs: !function utils.process_docs
+doc_to_text: "{{query}}"
+doc_to_target: "{{gold}}"
+doc_to_choice: "{{choices}}"
+process_results: !function utils.cce_process_results
+metric_list:
+  - metric: acc
+    aggregation: !function utils.nanmean
+    higher_is_better: true
+  - metric: acc_gold_removed
+    aggregation: !function utils.nanmean
+    higher_is_better: true
+  - metric: acc_distractor_removed
+    aggregation: !function utils.nanmean
+    higher_is_better: true
+  - metric: nota_false_positive
+    aggregation: !function utils.nanmean
+    higher_is_better: false
+metadata:
+  version: 2.0
+
+
+

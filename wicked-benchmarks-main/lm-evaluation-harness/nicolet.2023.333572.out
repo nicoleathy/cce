@@ -1,0 +1,12 @@
+No valid Hugging Face login found. Run 'hf auth login' on the login node first.
+Job ID: 333572
+Cluster: crimson
+User/Group: nicolet.2023/nicolet.2023
+State: FAILED (exit code 1)
+Nodes: 1
+Cores per node: 120
+CPU Utilized: 00:00:01
+CPU Efficiency: 0.42% of 00:04:00 core-walltime
+Job Wall-clock time: 00:00:02
+Memory Utilized: 3.06 MB
+Memory Efficiency: 0.00% of 400.00 GB (400.00 GB/node)

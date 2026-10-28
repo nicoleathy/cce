@@ -1,0 +1,356 @@
+=== job 316552 2026-10-08T13:39:54+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+Python 3.11.11
+transformers 4.46.0 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/__init__.py", line 1, in <module>
+    from .evaluator import evaluate, simple_evaluate
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/evaluator.py", line 12, in <module>
+    import lm_eval.api.metrics
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/api/metrics.py", line 10, in <module>
+    import sacrebleu
+ModuleNotFoundError: No module named 'sacrebleu'
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+orig_0shot finished 2026-10-08T13:40:06+08:00
+cce_0shot_seed0 finished 2026-10-08T13:40:08+08:00
+cce_0shot_seed1 finished 2026-10-08T13:40:10+08:00
+cce_0shot_seed2 finished 2026-10-08T13:40:12+08:00
+cce_0shot_seed3 finished 2026-10-08T13:40:14+08:00
+cce_0shot_seed4 finished 2026-10-08T13:40:16+08:00
+orig_5shot finished 2026-10-08T13:40:19+08:00
+cce_5shot_seed0 finished 2026-10-08T13:40:21+08:00
+cce_5shot_seed1 finished 2026-10-08T13:40:23+08:00
+cce_5shot_seed2 finished 2026-10-08T13:40:25+08:00
+cce_5shot_seed3 finished 2026-10-08T13:40:27+08:00
+cce_5shot_seed4 finished 2026-10-08T13:40:29+08:00
+exh_0shot finished 2026-10-08T13:40:32+08:00
+=== job 316553 2026-10-08T13:40:57+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+Python 3.11.11
+transformers 4.46.0 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/__init__.py", line 1, in <module>
+    from .evaluator import evaluate, simple_evaluate
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/evaluator.py", line 12, in <module>
+    import lm_eval.api.metrics
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/api/metrics.py", line 12, in <module>
+    from lm_eval.api.registry import register_aggregation, register_metric
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/api/registry.py", line 4, in <module>
+    import evaluate as hf_evaluate
+ModuleNotFoundError: No module named 'evaluate'
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+orig_0shot finished 2026-10-08T13:41:04+08:00
+cce_0shot_seed0 finished 2026-10-08T13:41:07+08:00
+cce_0shot_seed1 finished 2026-10-08T13:41:09+08:00
+cce_0shot_seed2 finished 2026-10-08T13:41:11+08:00
+cce_0shot_seed3 finished 2026-10-08T13:41:13+08:00
+cce_0shot_seed4 finished 2026-10-08T13:41:15+08:00
+orig_5shot finished 2026-10-08T13:41:18+08:00
+cce_5shot_seed0 finished 2026-10-08T13:41:20+08:00
+cce_5shot_seed1 finished 2026-10-08T13:41:22+08:00
+cce_5shot_seed2 finished 2026-10-08T13:41:24+08:00
+cce_5shot_seed3 finished 2026-10-08T13:41:26+08:00
+cce_5shot_seed4 finished 2026-10-08T13:41:29+08:00
+exh_0shot finished 2026-10-08T13:41:31+08:00
+=== job 316557 2026-10-08T13:41:55+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+Python 3.11.11
+transformers 4.46.0 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/__init__.py", line 1, in <module>
+    from .evaluator import evaluate, simple_evaluate
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/evaluator.py", line 12, in <module>
+    import lm_eval.api.metrics
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/api/metrics.py", line 12, in <module>
+    from lm_eval.api.registry import register_aggregation, register_metric
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/api/registry.py", line 6, in <module>
+    from lm_eval.api.model import LM
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/api/model.py", line 9, in <module>
+    from sqlitedict import SqliteDict
+ModuleNotFoundError: No module named 'sqlitedict'
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+orig_0shot finished 2026-10-08T13:42:09+08:00
+cce_0shot_seed0 finished 2026-10-08T13:42:14+08:00
+cce_0shot_seed1 finished 2026-10-08T13:42:19+08:00
+cce_0shot_seed2 finished 2026-10-08T13:42:24+08:00
+cce_0shot_seed3 finished 2026-10-08T13:42:28+08:00
+cce_0shot_seed4 finished 2026-10-08T13:42:33+08:00
+orig_5shot finished 2026-10-08T13:42:38+08:00
+cce_5shot_seed0 finished 2026-10-08T13:42:42+08:00
+cce_5shot_seed1 finished 2026-10-08T13:42:47+08:00
+cce_5shot_seed2 finished 2026-10-08T13:42:52+08:00
+cce_5shot_seed3 finished 2026-10-08T13:42:56+08:00
+cce_5shot_seed4 finished 2026-10-08T13:43:01+08:00
+exh_0shot finished 2026-10-08T13:43:06+08:00
+=== job 316568 2026-10-08T13:44:57+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+Python 3.11.11
+transformers 4.46.0 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/__init__.py", line 1, in <module>
+    from .evaluator import evaluate, simple_evaluate
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/evaluator.py", line 15, in <module>
+    import lm_eval.models
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/__init__.py", line 1, in <module>
+    from . import (
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/hf_vlms.py", line 13, in <module>
+    from lm_eval.models.huggingface import HFLM
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/huggingface.py", line 18, in <module>
+    from peft import PeftModel
+ModuleNotFoundError: No module named 'peft'
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+orig_0shot finished 2026-10-08T13:45:09+08:00
+cce_0shot_seed0 finished 2026-10-08T13:45:14+08:00
+cce_0shot_seed1 finished 2026-10-08T13:45:19+08:00
+cce_0shot_seed2 finished 2026-10-08T13:45:23+08:00
+cce_0shot_seed3 finished 2026-10-08T13:45:28+08:00
+cce_0shot_seed4 finished 2026-10-08T13:45:33+08:00
+orig_5shot finished 2026-10-08T13:45:37+08:00
+cce_5shot_seed0 finished 2026-10-08T13:45:42+08:00
+cce_5shot_seed1 finished 2026-10-08T13:45:47+08:00
+cce_5shot_seed2 finished 2026-10-08T13:45:52+08:00
+cce_5shot_seed3 finished 2026-10-08T13:45:56+08:00
+cce_5shot_seed4 finished 2026-10-08T13:46:01+08:00
+exh_0shot finished 2026-10-08T13:46:06+08:00
+=== job 316594 2026-10-08T13:52:30+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+Python 3.11.11
+transformers 4.46.0 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/__init__.py", line 1, in <module>
+    from .evaluator import evaluate, simple_evaluate
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/evaluator.py", line 15, in <module>
+    import lm_eval.models
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/__init__.py", line 1, in <module>
+    from . import (
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/vllm_causallms.py", line 6, in <module>
+    from more_itertools import distribute
+ModuleNotFoundError: No module named 'more_itertools'
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+orig_0shot finished 2026-10-08T13:52:43+08:00
+cce_0shot_seed0 finished 2026-10-08T13:52:47+08:00
+cce_0shot_seed1 finished 2026-10-08T13:52:52+08:00
+cce_0shot_seed2 finished 2026-10-08T13:52:57+08:00
+cce_0shot_seed3 finished 2026-10-08T13:53:02+08:00
+cce_0shot_seed4 finished 2026-10-08T13:53:07+08:00
+orig_5shot finished 2026-10-08T13:53:12+08:00
+cce_5shot_seed0 finished 2026-10-08T13:53:17+08:00
+cce_5shot_seed1 finished 2026-10-08T13:53:21+08:00
+cce_5shot_seed2 finished 2026-10-08T13:53:26+08:00
+cce_5shot_seed3 finished 2026-10-08T13:53:31+08:00
+cce_5shot_seed4 finished 2026-10-08T13:53:36+08:00
+exh_0shot finished 2026-10-08T13:53:41+08:00
+=== job 316607 2026-10-08T13:56:25+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+Python 3.11.11
+transformers 4.46.0 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+lm_eval unknown
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+orig_0shot finished 2026-10-08T13:56:51+08:00
+cce_0shot_seed0 finished 2026-10-08T13:57:04+08:00
+cce_0shot_seed1 finished 2026-10-08T13:57:18+08:00
+cce_0shot_seed2 finished 2026-10-08T13:57:31+08:00
+cce_0shot_seed3 finished 2026-10-08T13:57:44+08:00
+cce_0shot_seed4 finished 2026-10-08T13:57:58+08:00
+orig_5shot finished 2026-10-08T13:58:12+08:00
+cce_5shot_seed0 finished 2026-10-08T13:58:25+08:00
+cce_5shot_seed1 finished 2026-10-08T13:58:39+08:00
+=== job 316623 2026-10-08T14:03:24+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+Python 3.11.11
+transformers 4.46.0 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+lm_eval unknown
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+orig_0shot finished 2026-10-08T14:07:22+08:00
+cce_0shot_seed0 finished 2026-10-08T14:10:56+08:00
+cce_0shot_seed1 finished 2026-10-08T14:14:23+08:00
+=== job 316641 2026-10-08T14:15:31+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+Python 3.11.11
+transformers 4.46.0 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+lm_eval unknown
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+NVIDIA GeForce RTX 3090, 24576 MiB
+orig_0shot finished 2026-10-08T14:19:24+08:00
+cce_0shot_seed0 finished 2026-10-08T14:22:52+08:00
+cce_0shot_seed1 finished 2026-10-08T14:26:20+08:00
+cce_0shot_seed2 finished 2026-10-08T14:29:46+08:00
+cce_0shot_seed3 finished 2026-10-08T14:33:12+08:00
+cce_0shot_seed4 finished 2026-10-08T14:36:39+08:00
+orig_5shot finished 2026-10-08T14:51:29+08:00
+cce_5shot_seed0 finished 2026-10-08T15:04:43+08:00
+cce_5shot_seed1 finished 2026-10-08T15:17:59+08:00
+cce_5shot_seed2 finished 2026-10-08T15:31:13+08:00
+cce_5shot_seed3 finished 2026-10-08T15:44:26+08:00
+cce_5shot_seed4 finished 2026-10-08T15:57:40+08:00
+exh_0shot finished 2026-10-08T16:07:12+08:00
+=== job 316980 2026-10-09T01:23:58+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+Python 3.11.11
+transformers 4.51.3 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+lm_eval unknown
+NVIDIA A40, 46068 MiB
+NVIDIA A40, 46068 MiB
+NVIDIA A40, 46068 MiB
+NVIDIA A40, 46068 MiB
+orig_0shot finished 2026-10-09T01:27:28+08:00
+cce_0shot_seed0 finished 2026-10-09T01:28:56+08:00
+cce_0shot_seed1 finished 2026-10-09T01:30:23+08:00
+cce_0shot_seed2 finished 2026-10-09T01:31:50+08:00
+cce_0shot_seed3 finished 2026-10-09T01:33:17+08:00
+cce_0shot_seed4 finished 2026-10-09T01:36:10+08:00
+orig_5shot finished 2026-10-09T01:40:13+08:00
+cce_5shot_seed0 finished 2026-10-09T01:43:57+08:00
+cce_5shot_seed1 finished 2026-10-09T01:47:30+08:00
+cce_5shot_seed2 finished 2026-10-09T01:51:04+08:00
+cce_5shot_seed3 finished 2026-10-09T01:54:36+08:00
+cce_5shot_seed4 finished 2026-10-09T01:58:24+08:00
+exh_0shot finished 2026-10-09T02:01:10+08:00
+=== job 318164 on toga 2026-10-10T11:48:42+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=8 parallelize=False dtype=bfloat16
+Python 3.11.11
+transformers 4.51.3 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+lm_eval unknown
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+orig_0shot finished 2026-10-10T11:52:59+08:00
+cce_0shot_seed0 finished 2026-10-10T11:56:39+08:00
+cce_0shot_seed1 finished 2026-10-10T12:00:14+08:00
+cce_0shot_seed2 finished 2026-10-10T12:03:51+08:00
+cce_0shot_seed3 finished 2026-10-10T12:07:33+08:00
+cce_0shot_seed4 finished 2026-10-10T12:11:10+08:00
+orig_5shot finished 2026-10-10T12:25:21+08:00
+cce_5shot_seed0 finished 2026-10-10T12:38:01+08:00
+cce_5shot_seed1 finished 2026-10-10T12:50:47+08:00
+cce_5shot_seed2 finished 2026-10-10T13:03:34+08:00
+cce_5shot_seed3 finished 2026-10-10T13:16:18+08:00
+cce_5shot_seed4 finished 2026-10-10T13:29:08+08:00
+exh_0shot finished 2026-10-10T13:39:15+08:00
+=== job 331655 on analog 2026-10-19T00:04:56+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=8 parallelize=False dtype=bfloat16
+Python 3.11.11
+transformers 5.20.1 | torch 2.14.1+cu130 | cuda 13.0 | datasets 5.1.0
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/__init__.py", line 1, in <module>
+    from .evaluator import evaluate, simple_evaluate
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/evaluator.py", line 15, in <module>
+    import lm_eval.models
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/__init__.py", line 1, in <module>
+    from . import (
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/hf_vlms.py", line 30, in <module>
+    class HFMultimodalLM(HFLM):
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/hf_vlms.py", line 35, in HFMultimodalLM
+    AUTO_MODEL_CLASS = transformers.AutoModelForVision2Seq
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/common/home/users/n/nicolet.2023/myenv/lib/python3.11/site-packages/transformers/utils/import_utils.py", line 2822, in __getattr__
+    raise AttributeError(f"module {self.__name__} has no attribute {name}")
+AttributeError: module transformers has no attribute AutoModelForVision2Seq
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+orig_0shot finished 2026-10-19T00:05:29+08:00
+cce_0shot_seed0 finished 2026-10-19T00:05:37+08:00
+cce_0shot_seed1 finished 2026-10-19T00:05:46+08:00
+cce_0shot_seed2 finished 2026-10-19T00:05:54+08:00
+cce_0shot_seed3 finished 2026-10-19T00:06:03+08:00
+cce_0shot_seed4 finished 2026-10-19T00:06:11+08:00
+orig_5shot finished 2026-10-19T00:06:20+08:00
+cce_5shot_seed0 finished 2026-10-19T00:06:25+08:00
+cce_5shot_seed1 finished 2026-10-19T00:06:28+08:00
+cce_5shot_seed2 finished 2026-10-19T00:06:31+08:00
+cce_5shot_seed3 finished 2026-10-19T00:06:34+08:00
+cce_5shot_seed4 finished 2026-10-19T00:06:37+08:00
+exh_0shot finished 2026-10-19T00:06:40+08:00
+=== job 331659 on analog 2026-10-19T00:07:27+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=8 parallelize=False dtype=bfloat16
+Python 3.11.11
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/common/home/users/n/nicolet.2023/myenv/lib/python3.11/site-packages/datasets/__init__.py", line 17, in <module>
+    from .arrow_dataset import Column, Dataset
+  File "/common/home/users/n/nicolet.2023/myenv/lib/python3.11/site-packages/datasets/arrow_dataset.py", line 74, in <module>
+    from huggingface_hub.errors import BucketNotFoundError
+ImportError: cannot import name 'BucketNotFoundError' from 'huggingface_hub.errors' (/common/home/users/n/nicolet.2023/myenv/lib/python3.11/site-packages/huggingface_hub/errors.py)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/__init__.py", line 1, in <module>
+    from .evaluator import evaluate, simple_evaluate
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/evaluator.py", line 12, in <module>
+    import lm_eval.api.metrics
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/api/metrics.py", line 12, in <module>
+    from lm_eval.api.registry import register_aggregation, register_metric
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/api/registry.py", line 4, in <module>
+    import evaluate as hf_evaluate
+  File "/common/home/users/n/nicolet.2023/myenv/lib/python3.11/site-packages/evaluate/__init__.py", line 29, in <module>
+    from .evaluation_suite import EvaluationSuite
+  File "/common/home/users/n/nicolet.2023/myenv/lib/python3.11/site-packages/evaluate/evaluation_suite/__init__.py", line 7, in <module>
+    from datasets import Dataset, DownloadConfig, DownloadMode, load_dataset
+  File "/common/home/users/n/nicolet.2023/myenv/lib/python3.11/site-packages/datasets/__init__.py", line 17, in <module>
+    from .arrow_dataset import Column, Dataset
+  File "/common/home/users/n/nicolet.2023/myenv/lib/python3.11/site-packages/datasets/arrow_dataset.py", line 74, in <module>
+    from huggingface_hub.errors import BucketNotFoundError
+ImportError: cannot import name 'BucketNotFoundError' from 'huggingface_hub.errors' (/common/home/users/n/nicolet.2023/myenv/lib/python3.11/site-packages/huggingface_hub/errors.py)
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+orig_0shot finished 2026-10-19T00:07:50+08:00
+cce_0shot_seed0 finished 2026-10-19T00:07:53+08:00
+cce_0shot_seed1 finished 2026-10-19T00:07:56+08:00
+cce_0shot_seed2 finished 2026-10-19T00:07:59+08:00
+cce_0shot_seed3 finished 2026-10-19T00:08:02+08:00
+cce_0shot_seed4 finished 2026-10-19T00:08:05+08:00
+orig_5shot finished 2026-10-19T00:08:08+08:00
+cce_5shot_seed0 finished 2026-10-19T00:08:11+08:00
+cce_5shot_seed1 finished 2026-10-19T00:08:14+08:00
+cce_5shot_seed2 finished 2026-10-19T00:08:17+08:00
+cce_5shot_seed3 finished 2026-10-19T00:08:20+08:00
+cce_5shot_seed4 finished 2026-10-19T00:08:23+08:00
+exh_0shot finished 2026-10-19T00:08:26+08:00

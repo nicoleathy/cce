@@ -1,0 +1,24 @@
+=== job 331652 on analog 2026-10-19T00:02:41+08:00 ===
+model=Qwen/Qwen3.5-2B-Base
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=4 parallelize=False dtype=bfloat16
+Python 3.11.11
+transformers 5.20.1 | torch 2.14.1+cu130 | cuda 13.0 | datasets 5.1.0
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/__init__.py", line 1, in <module>
+    from .evaluator import evaluate, simple_evaluate
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/evaluator.py", line 15, in <module>
+    import lm_eval.models
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/__init__.py", line 1, in <module>
+    from . import (
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/hf_vlms.py", line 13, in <module>
+    from lm_eval.models.huggingface import HFLM
+  File "/common/home/users/n/nicolet.2023/fallacies/wicked-benchmarks-main/lm-evaluation-harness/lm_eval/models/huggingface.py", line 18, in <module>
+    from peft import PeftModel
+ModuleNotFoundError: No module named 'peft'
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+orig_0shot finished 2026-10-19T00:03:12+08:00

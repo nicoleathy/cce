@@ -1,0 +1,24 @@
+=== job 336073 on toga 2026-10-24T04:33:30+08:00 ===
+model=google/gemma-4-12B-it
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=2 parallelize=True dtype=bfloat16
+Python 3.11.11
+transformers 5.20.1 | torch 2.14.1+cu130 | cuda 13.0 | datasets 5.1.0
+lm_eval 0.4.13
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+orig_0shot finished 2026-10-24T05:03:37+08:00
+cce_0shot_seed0 finished 2026-10-24T05:28:55+08:00
+cce_0shot_seed1 finished 2026-10-24T05:54:19+08:00
+cce_0shot_seed2 finished 2026-10-24T06:19:35+08:00
+cce_0shot_seed3 finished 2026-10-24T06:44:48+08:00
+cce_0shot_seed4 finished 2026-10-24T07:10:17+08:00
+orig_5shot finished 2026-10-24T09:02:22+08:00
+cce_5shot_seed0 finished 2026-10-24T10:41:07+08:00
+cce_5shot_seed1 finished 2026-10-24T12:19:59+08:00
+cce_5shot_seed2 finished 2026-10-24T13:58:42+08:00
+cce_5shot_seed3 finished 2026-10-24T15:37:28+08:00
+cce_5shot_seed4 finished 2026-10-24T17:16:15+08:00
+exh_0shot finished 2026-10-24T18:48:37+08:00

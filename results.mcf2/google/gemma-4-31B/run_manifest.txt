@@ -1,0 +1,35 @@
+=== job 337770 on lava 2026-10-25T11:14:26+08:00 ===
+model=google/gemma-4-31B
+shots=0 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=2 parallelize=True dtype=bfloat16
+Python 3.11.11
+transformers 5.20.1 | torch 2.14.1+cu130 | cuda 13.0 | datasets 5.1.0
+lm_eval 0.4.13
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+orig_0shot finished 2026-10-25T11:18:58+08:00
+cce_0shot_seed0 finished 2026-10-25T11:23:30+08:00
+cce_0shot_seed1 finished 2026-10-25T11:26:27+08:00
+cce_0shot_seed2 finished 2026-10-25T11:29:13+08:00
+cce_0shot_seed3 finished 2026-10-25T11:32:32+08:00
+cce_0shot_seed4 finished 2026-10-25T11:35:45+08:00
+=== job 338912 on sierra 2026-10-26T13:52:01+08:00 ===
+model=google/gemma-4-31B
+shots=0 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=2 parallelize=True dtype=bfloat16
+Python 3.11.11
+transformers 5.20.1 | torch 2.14.1+cu130 | cuda 13.0 | datasets 5.1.0
+lm_eval 0.4.13
+Tesla P100-SXM2-16GB, 16384 MiB, 580.178.04
+Tesla P100-SXM2-16GB, 16384 MiB, 580.178.04
+Tesla P100-SXM2-16GB, 16384 MiB, 580.178.04
+Tesla P100-SXM2-16GB, 16384 MiB, 580.178.04
+orig_0shot FAILED 2026-10-26T14:11:25+08:00
+cce_0shot_seed0 FAILED 2026-10-26T14:12:24+08:00
+cce_0shot_seed1 FAILED 2026-10-26T14:13:23+08:00
+cce_0shot_seed2 FAILED 2026-10-26T14:14:21+08:00
+cce_0shot_seed3 FAILED 2026-10-26T14:15:19+08:00
+cce_0shot_seed4 FAILED 2026-10-26T14:16:17+08:00
+exh_0shot FAILED 2026-10-26T14:17:14+08:00

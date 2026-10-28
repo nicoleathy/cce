@@ -1,0 +1,24 @@
+orig_0shot finished 2026-10-25T11:42:45+08:00
+cce_0shot_seed0 finished 2026-10-25T11:45:43+08:00
+cce_0shot_seed1 finished 2026-10-25T11:49:44+08:00
+cce_0shot_seed3 finished 2026-10-25T11:57:38+08:00
+cce_0shot_seed4 finished 2026-10-25T12:00:36+08:00
+exh_0shot finished 2026-10-25T12:05:27+08:00
+=== job 338913 on comet 2026-10-26T13:52:06+08:00 ===
+model=google/gemma-4-31B-it
+shots=0 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=2 parallelize=True dtype=bfloat16
+Python 3.11.11
+transformers 5.20.1 | torch 2.14.1+cu130 | cuda 13.0 | datasets 5.1.0
+lm_eval 0.4.13
+NVIDIA RTX A5000, 23028 MiB, 590.48.01
+NVIDIA RTX A5000, 23028 MiB, 590.48.01
+NVIDIA RTX A5000, 23028 MiB, 590.48.01
+NVIDIA RTX A5000, 23028 MiB, 590.48.01
+orig_0shot finished 2026-10-26T15:05:39+08:00
+cce_0shot_seed0 finished 2026-10-26T15:49:02+08:00
+cce_0shot_seed1 finished 2026-10-26T16:32:14+08:00
+cce_0shot_seed2 finished 2026-10-26T17:15:42+08:00
+cce_0shot_seed3 finished 2026-10-26T17:58:59+08:00
+cce_0shot_seed4 finished 2026-10-26T18:42:22+08:00
+exh_0shot finished 2026-10-26T21:23:38+08:00

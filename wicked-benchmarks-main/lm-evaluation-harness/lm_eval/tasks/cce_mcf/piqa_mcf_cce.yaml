@@ -1,0 +1,8 @@
+include: _cce_template_yaml
+task: piqa_mcf_cce
+tag: mcf_cce
+dataset_path: baber/piqa
+training_split: train
+fewshot_split: train
+validation_split: validation
+process_docs: !function utils.piqa_cce

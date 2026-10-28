@@ -1,0 +1,61 @@
+# task: piqa
+# dataset_path: piqa
+# dataset_name: null
+# output_type: multiple_choice
+# training_split: train
+# validation_split: validation
+# test_split: null
+# doc_to_text: "Question: {{goal}}\nAnswer:"
+# doc_to_target: label
+# doc_to_choice: "{{[sol1, sol2, 'None of the above']}}"
+# should_decontaminate: true
+# doc_to_decontamination_query: goal
+# metric_list:
+#   - metric: acc
+#     aggregation: mean
+#     higher_is_better: true
+#   - metric: acc_norm
+#     aggregation: mean
+#     higher_is_better: true
+# metadata:
+#   version: 1.1
+# dataset_kwargs:
+#   trust_remote_code: true  
+
+task: piqa
+dataset_path: baber/piqa
+dataset_name: null
+output_type: multiple_choice
+training_split: train
+validation_split: validation
+test_split: null
+process_docs: !function utils.process_docs
+doc_to_text: "Question: {{goal}}\nAnswer:"
+doc_to_target: "{{gold}}"
+doc_to_choice: "{{choices}}"
+process_results: !function utils.cce_process_results
+should_decontaminate: true
+doc_to_decontamination_query: goal
+metric_list:
+  - metric: acc
+    aggregation: !function utils.nanmean
+    higher_is_better: true
+  - metric: acc_gold_removed
+    aggregation: !function utils.nanmean
+    higher_is_better: true
+  - metric: acc_distractor_removed
+    aggregation: !function utils.nanmean
+    higher_is_better: true
+  - metric: nota_false_positive
+    aggregation: !function utils.nanmean
+    higher_is_better: false
+metadata:
+  version: 2.0
+
+
+
+
+
+
+
+

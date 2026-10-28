@@ -1,1 +1,9 @@
--e .
+# Versions used for the paper's results
+lm-eval==0.4.13
+transformers==5.20.1
+torch==2.14.1
+datasets==5.1.0
+accelerate
+sentencepiece
+protobuf
+numpy

@@ -1,0 +1,24 @@
+=== job 330600 on analog 2026-10-18T10:04:58+08:00 ===
+model=mistralai/Mistral-7B-Instruct-v0.3
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=4 parallelize=False dtype=bfloat16
+Python 3.11.11
+transformers 4.51.3 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+lm_eval unknown
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+orig_0shot finished 2026-10-18T10:14:02+08:00
+cce_0shot_seed0 finished 2026-10-18T10:19:45+08:00
+cce_0shot_seed1 finished 2026-10-18T10:25:28+08:00
+cce_0shot_seed2 finished 2026-10-18T10:31:09+08:00
+cce_0shot_seed3 finished 2026-10-18T10:36:53+08:00
+cce_0shot_seed4 finished 2026-10-18T10:42:36+08:00
+orig_5shot finished 2026-10-18T11:06:22+08:00
+cce_5shot_seed0 finished 2026-10-18T11:27:45+08:00
+cce_5shot_seed1 finished 2026-10-18T11:48:57+08:00
+cce_5shot_seed2 finished 2026-10-18T12:10:13+08:00
+cce_5shot_seed3 finished 2026-10-18T12:31:36+08:00
+cce_5shot_seed4 finished 2026-10-18T12:52:52+08:00
+exh_0shot finished 2026-10-18T13:10:39+08:00

@@ -1,0 +1,9 @@
+include: _orig_template_yaml
+task: arc_challenge_mcf_orig
+tag: mcf_orig
+dataset_path: allenai/ai2_arc
+dataset_name: ARC-Challenge
+training_split: train
+fewshot_split: train
+test_split: test
+process_docs: !function utils.arc_orig

@@ -1,0 +1,84 @@
+=== job 319845 on lagoon 2026-10-11T23:43:43+08:00 ===
+model=meta-llama/Llama-3.2-3B-Instruct
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=8 parallelize=False dtype=bfloat16
+Python 3.11.11
+transformers 4.51.3 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+lm_eval unknown
+NVIDIA L40, 46068 MiB, 590.48.01
+NVIDIA L40, 46068 MiB, 590.48.01
+NVIDIA L40, 46068 MiB, 590.48.01
+NVIDIA L40, 46068 MiB, 590.48.01
+orig_0shot finished 2026-10-11T23:44:15+08:00
+cce_0shot_seed0 finished 2026-10-11T23:44:28+08:00
+cce_0shot_seed1 finished 2026-10-11T23:44:41+08:00
+cce_0shot_seed2 finished 2026-10-11T23:44:54+08:00
+cce_0shot_seed3 finished 2026-10-11T23:45:07+08:00
+cce_0shot_seed4 finished 2026-10-11T23:45:20+08:00
+orig_5shot finished 2026-10-11T23:45:32+08:00
+cce_5shot_seed0 finished 2026-10-11T23:45:45+08:00
+cce_5shot_seed1 finished 2026-10-11T23:45:58+08:00
+cce_5shot_seed2 finished 2026-10-11T23:46:11+08:00
+cce_5shot_seed3 finished 2026-10-11T23:46:24+08:00
+cce_5shot_seed4 finished 2026-10-11T23:46:37+08:00
+exh_0shot finished 2026-10-11T23:46:49+08:00
+=== job 321707 on analog 2026-10-13T15:16:00+08:00 ===
+model=meta-llama/Llama-3.2-3B-Instruct
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=8 parallelize=False dtype=bfloat16
+Python 3.11.11
+transformers 4.51.3 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+lm_eval unknown
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+orig_0shot finished 2026-10-13T15:21:26+08:00
+cce_0shot_seed0 finished 2026-10-13T15:25:02+08:00
+cce_0shot_seed1 finished 2026-10-13T15:28:45+08:00
+cce_0shot_seed2 finished 2026-10-13T15:32:20+08:00
+cce_0shot_seed3 finished 2026-10-13T15:35:58+08:00
+cce_0shot_seed4 finished 2026-10-13T15:39:32+08:00
+orig_5shot finished 2026-10-13T15:53:00+08:00
+cce_5shot_seed0 finished 2026-10-13T16:04:59+08:00
+cce_5shot_seed1 finished 2026-10-13T16:17:02+08:00
+cce_5shot_seed2 finished 2026-10-13T16:29:12+08:00
+cce_5shot_seed3 finished 2026-10-13T16:41:19+08:00
+=== job 331221 on analog 2026-10-18T17:57:34+08:00 ===
+model=meta-llama/Llama-3.2-3B-Instruct
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=8 parallelize=False dtype=bfloat16
+Python 3.11.11
+transformers 4.51.3 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+lm_eval unknown
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+orig_0shot finished 2026-10-18T18:02:56+08:00
+cce_0shot_seed0 finished 2026-10-18T18:06:30+08:00
+cce_0shot_seed1 finished 2026-10-18T18:10:06+08:00
+=== job 331468 on analog 2026-10-18T21:52:45+08:00 ===
+model=meta-llama/Llama-3.2-3B-Instruct
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=8 parallelize=False dtype=bfloat16
+Python 3.11.11
+transformers 4.51.3 | torch 2.14.0+cu130 | cuda 13.0 | datasets 2.21.0
+lm_eval unknown
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+NVIDIA A100-SXM4-40GB, 40960 MiB, 590.48.01
+orig_0shot finished 2026-10-18T21:57:19+08:00
+cce_0shot_seed0 finished 2026-10-18T22:00:57+08:00
+cce_0shot_seed1 finished 2026-10-18T22:04:38+08:00
+cce_0shot_seed2 finished 2026-10-18T22:08:21+08:00
+cce_0shot_seed3 finished 2026-10-18T22:12:09+08:00
+cce_0shot_seed4 finished 2026-10-18T22:15:47+08:00
+orig_5shot finished 2026-10-18T22:29:11+08:00
+cce_5shot_seed0 finished 2026-10-18T22:41:14+08:00
+cce_5shot_seed1 finished 2026-10-18T22:53:18+08:00
+cce_5shot_seed2 finished 2026-10-18T23:05:20+08:00
+cce_5shot_seed3 finished 2026-10-18T23:17:23+08:00
+cce_5shot_seed4 finished 2026-10-18T23:29:25+08:00
+exh_0shot finished 2026-10-18T23:39:21+08:00

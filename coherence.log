@@ -1,0 +1,24 @@
+nohup: ignoring input
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 12295.71it/s]
+Generating train split:   0%|          | 0/1119 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 1119/1119 [00:00<00:00, 194667.20 examples/s]
+Generating test split:   0%|          | 0/1172 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1172/1172 [00:00<00:00, 348583.48 examples/s]
+Generating validation split:   0%|          | 0/299 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 299/299 [00:00<00:00, 153952.48 examples/s]
+arc_challenge: 1172 items, 457 flagged (39.0%)
+Generating train split:   0%|          | 0/9741 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 9741/9741 [00:00<00:00, 994758.36 examples/s]
+Generating validation split:   0%|          | 0/1221 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 1221/1221 [00:00<00:00, 474804.86 examples/s]
+Generating test split:   0%|          | 0/1140 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1140/1140 [00:00<00:00, 485038.20 examples/s]
+commonsense_qa: 1221 items, 34 flagged (2.8%)
+Generating train split:   0%|          | 0/39905 [00:00<?, ? examples/s]Generating train split:  90%|█████████ | 36000/39905 [00:00<00:00, 333036.92 examples/s]Generating train split: 100%|██████████| 39905/39905 [00:00<00:00, 345664.17 examples/s]
+Generating test split:   0%|          | 0/10003 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 10003/10003 [00:00<00:00, 408184.22 examples/s]
+Generating validation split:   0%|          | 0/10042 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 10042/10042 [00:00<00:00, 405499.19 examples/s]
+hellaswag: 10042 items, 958 flagged (9.5%)
+Generating train split:   0%|          | 0/16113 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 16113/16113 [00:00<00:00, 1112035.09 examples/s]
+Generating validation split:   0%|          | 0/1838 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 1838/1838 [00:00<00:00, 622557.60 examples/s]
+Generating test split:   0%|          | 0/3084 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 3084/3084 [00:00<00:00, 806888.75 examples/s]
+piqa: 1838 items, 25 flagged (1.4%)
+Generating train split:   0%|          | 0/40398 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 40398/40398 [00:00<00:00, 2695494.71 examples/s]
+Generating test split:   0%|          | 0/1767 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1767/1767 [00:00<00:00, 825131.95 examples/s]
+Generating validation split:   0%|          | 0/1267 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 1267/1267 [00:00<00:00, 672085.89 examples/s]
+winogrande: 1267 items, 10 flagged (0.8%)
+wrote /common/home/users/n/nicolet.2023/fallacies/coherence_flags.csv

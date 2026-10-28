@@ -1,0 +1,59 @@
+# tag:
+#   - ai2_arc
+# task: arc_easy
+# dataset_path: allenai/ai2_arc
+# dataset_name: ARC-Easy
+# output_type: multiple_choice
+# training_split: train
+# validation_split: validation
+# test_split: test
+# process_docs: !function utils.preprocessing
+# doc_to_text: !function utils.doc2text  
+# doc_to_target: "{{choices.label.index(answerKey)}}"
+# doc_to_choice: "{{choices.label}}"
+# should_decontaminate: true
+# doc_to_decontamination_query: !function utils.doc2text
+# metric_list:
+#   - metric: acc
+#     aggregation: mean
+#     higher_is_better: true
+#   - metric: acc_norm
+#     aggregation: mean
+#     higher_is_better: true
+# metadata:
+#   version: 1.0
+
+tag:
+  - ai2_arc
+task: arc_easy
+dataset_path: allenai/ai2_arc
+dataset_name: ARC-Easy
+output_type: multiple_choice
+training_split: train
+validation_split: validation
+test_split: test
+process_docs: !function utils.process_docs
+doc_to_text: "{{query}}"
+doc_to_target: "{{gold}}"
+doc_to_choice: "{{choices}}"
+process_results: !function utils.cce_process_results
+should_decontaminate: true
+doc_to_decontamination_query: "{{query}}"
+metric_list:
+  - metric: acc
+    aggregation: !function utils.nanmean
+    higher_is_better: true
+  - metric: acc_gold_removed
+    aggregation: !function utils.nanmean
+    higher_is_better: true
+  - metric: acc_distractor_removed
+    aggregation: !function utils.nanmean
+    higher_is_better: true
+  - metric: nota_false_positive
+    aggregation: !function utils.nanmean
+    higher_is_better: false
+metadata:
+  version: 2.0
+
+
+

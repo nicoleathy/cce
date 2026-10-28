@@ -1,0 +1,19 @@
+task: winogrande_orig
+dataset_path: allenai/winogrande
+dataset_name: winogrande_xl
+output_type: multiple_choice
+training_split: train
+validation_split: validation
+process_docs: !function utils.process_docs_orig
+doc_to_text: !function utils.doc_to_text
+doc_to_target: !function utils.doc_to_target
+doc_to_choice: !function utils.doc_to_choice
+process_results: !function utils.orig_process_results
+should_decontaminate: true
+doc_to_decontamination_query: sentence
+metric_list:
+  - metric: acc
+    aggregation: !function utils.nanmean
+    higher_is_better: true
+metadata:
+  version: 2.0

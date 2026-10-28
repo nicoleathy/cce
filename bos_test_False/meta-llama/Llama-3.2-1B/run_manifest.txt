@@ -1,0 +1,12 @@
+=== job 334195 on lotus 2026-10-21T15:39:46+08:00 ===
+model=meta-llama/Llama-3.2-1B
+shots=0 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=8 parallelize=False dtype=bfloat16
+Python 3.11.11
+transformers 5.20.1 | torch 2.14.1+cu130 | cuda 13.0 | datasets 5.1.0
+lm_eval 0.4.13
+NVIDIA L40S, 46068 MiB, 590.48.01
+NVIDIA L40S, 46068 MiB, 590.48.01
+NVIDIA L40S, 46068 MiB, 590.48.01
+NVIDIA L40S, 46068 MiB, 590.48.01
+orig_0shot finished 2026-10-21T15:42:11+08:00

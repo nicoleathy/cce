@@ -1,0 +1,9 @@
+include: _cce_template_yaml
+task: arc_challenge_mcf_exh
+tag: mcf_exh
+dataset_path: allenai/ai2_arc
+dataset_name: ARC-Challenge
+training_split: train
+fewshot_split: train
+test_split: test
+process_docs: !function utils.arc_exh

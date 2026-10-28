@@ -1,0 +1,8 @@
+include: _cce_template_yaml
+task: hellaswag_mcf_exh
+tag: mcf_exh
+dataset_path: Rowan/hellaswag
+training_split: train
+fewshot_split: train
+validation_split: validation
+process_docs: !function utils.hellaswag_exh
