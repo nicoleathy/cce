@@ -11,21 +11,6 @@ A model that detects a missing answer picks NOTA far more often in GR than DR; o
 
 Tasks run on [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) via `--include_path`; no fork needed.
 
-## Repository layout
-
-```
-tasks/cce_mcf/            lm-eval task definitions
-  utils.py                prompt building, NOTA substitution, metrics
-  *_mcf_orig.yaml         original items, same prompt and scoring
-  *_mcf_cce.yaml          one random substitution per item (seeded)
-  *_mcf_exh.yaml          exhaustive: every item x every removed option
-scripts/
-  run_cce.sh              runs all settings for one model
-  paired_analysis.py      builds all tables from the per-item logs
-  coherence_flags.py      flags possibly incoherent gold-removed items
-requirements.txt
-```
-
 ## Installation
 
 ```bash
