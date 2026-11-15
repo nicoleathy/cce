@@ -1,4 +1,0 @@
-include: _default_template_yaml
-task_alias: high_school_geography
-task: mmlu_redux_high_school_geography
-dataset_name: "high_school_geography"

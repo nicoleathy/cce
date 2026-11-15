@@ -1,4 +1,0 @@
-include: _default_template_yaml
-task_alias: clinical_knowledge
-task: mmlu_redux_clinical_knowledge
-dataset_name: "clinical_knowledge"

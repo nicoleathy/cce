@@ -1,0 +1,15 @@
+metric                                            A_GR_base  NOTA_DR_base  NOTA_discrimination_base  sig_base  A_GR_new  NOTA_DR_new  NOTA_discrimination_new  sig_new  d_A_GR  d_NOTA_DR  d_NOTA_discrimination
+model                              dataset                                                                                                                                                                      
+Qwen/Qwen3.5-4B                    arc_challenge       49.8           2.2                      47.6      True      50.6          2.4                     48.2     True     0.8        0.1                    0.7
+                                   winogrande           1.5           0.3                       1.2      True       1.3          0.3                      0.9     True    -0.2        0.0                   -0.2
+google/gemma-4-12B-it              arc_challenge       53.4          12.5                      40.9      True      22.4         21.1                      1.2    False   -31.1        8.6                  -39.7
+                                   winogrande          13.7           8.5                       5.2      True      28.8         29.5                     -0.7    False    15.1       21.0                   -5.9
+meta-llama/Llama-3.2-3B-Instruct   arc_challenge       19.5           4.7                      14.9      True      20.1          4.6                     15.5     True     0.5       -0.1                    0.6
+                                   winogrande          82.0          81.3                       0.7     False      81.9         81.1                      0.8    False    -0.1       -0.2                    0.1
+mistralai/Mistral-7B-Instruct-v0.3 arc_challenge       25.0           2.9                      22.1      True      24.7          2.9                     21.8     True    -0.3       -0.0                   -0.3
+                                   winogrande          66.1          60.2                       5.9      True      65.7         60.5                      5.1     True    -0.5        0.3                   -0.8
+
+max |change in GR-DR gap|: 39.7 points
+max |change in GR rate|:   31.1 points
+max |change in DR rate|:   21.0 points
+significance changes:      2 of 8 cells

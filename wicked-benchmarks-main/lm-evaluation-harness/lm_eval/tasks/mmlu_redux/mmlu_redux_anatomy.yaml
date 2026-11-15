@@ -1,4 +1,0 @@
-include: _default_template_yaml
-task_alias: anatomy
-task: mmlu_redux_anatomy
-dataset_name: "anatomy"

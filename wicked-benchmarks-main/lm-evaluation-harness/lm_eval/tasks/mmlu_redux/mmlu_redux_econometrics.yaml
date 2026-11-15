@@ -1,4 +1,0 @@
-include: _default_template_yaml
-task_alias: econometrics
-task: mmlu_redux_econometrics
-dataset_name: "econometrics"

@@ -1,0 +1,24 @@
+=== run 2026-10-22T17:15:13 ===
+model=mistralai/Mistral-7B-Instruct-v0.3
+shots=0 5 seeds=0 1 2 3 4 fewshot_seed=1234 limit=none
+batch_size=2 parallelize=False dtype=bfloat16
+Python 3.11.11
+transformers 5.20.1 | torch 2.14.1+cu130 | cuda 13.0 | datasets 5.1.0
+lm_eval 0.4.13
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+NVIDIA GeForce RTX 3090, 24576 MiB, 590.48.01
+orig_0shot finished 2026-10-22T17:40:28
+cce_0shot_seed0 finished 2026-10-22T17:53:44
+cce_0shot_seed1 finished 2026-10-22T18:06:59
+cce_0shot_seed2 finished 2026-10-22T18:20:12
+cce_0shot_seed3 finished 2026-10-22T18:33:26
+cce_0shot_seed4 finished 2026-10-22T18:46:39
+orig_5shot finished 2026-10-22T19:49:40
+cce_5shot_seed0 finished 2026-10-22T20:45:39
+cce_5shot_seed1 finished 2026-10-22T21:41:36
+cce_5shot_seed2 finished 2026-10-22T22:38:10
+cce_5shot_seed3 finished 2026-10-22T23:34:09
+cce_5shot_seed4 finished 2026-10-23T00:30:12
+exh_0shot finished 2026-10-23T01:17:34

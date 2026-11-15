@@ -1,0 +1,15 @@
+=== run 2026-11-09T08:57:31 ===
+mode=chat dtype=bfloat16 batch_size=8 parallelize=False limit=none nota=default
+transformers 5.20.1 | torch 2.14.1+cu130 | lm_eval 0.4.13
+NVIDIA A100-SXM4-40GB, 40960 MiB
+NVIDIA A100-SXM4-40GB, 40960 MiB
+NVIDIA A100-SXM4-40GB, 40960 MiB
+NVIDIA A100-SXM4-40GB, 40960 MiB
+meta-llama/Llama-3.2-3B-Instruct orig finished 2026-11-09T09:00:01
+meta-llama/Llama-3.2-3B-Instruct exh finished 2026-11-09T09:01:32
+mistralai/Mistral-7B-Instruct-v0.3 orig finished 2026-11-09T09:04:56
+mistralai/Mistral-7B-Instruct-v0.3 exh finished 2026-11-09T09:06:44
+Qwen/Qwen3.5-4B orig finished 2026-11-09T09:08:14
+Qwen/Qwen3.5-4B exh finished 2026-11-09T09:10:32
+google/gemma-4-12B-it orig finished 2026-11-09T09:15:45
+google/gemma-4-12B-it exh finished 2026-11-09T09:18:44
