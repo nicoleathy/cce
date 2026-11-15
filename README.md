@@ -1,6 +1,6 @@
 # Counterfactual Choice Evaluation (CCE)
 
-Code and results for the paper **"Counterfactual Choice Evaluation"** (under review; link to be added).
+Code and results for the paper **"Counterfactual Choice Evaluation"**.
 
 CCE replaces one option of a multiple-choice item with "None of the above" (NOTA).
 If the gold answer is removed (GR), NOTA becomes correct; if a distractor is removed (DR),
