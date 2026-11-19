@@ -1,6 +1,9 @@
 \begin{table}[ht!]
 \centering
-\caption{Accuracy (\%) on original items (Orig), under CCE, and their difference (Diff $=$ CCE $-$ Orig, computed from the values shown; positive indicates improvement). CCE replaces one option with ``None of the above'' and scores answer letters by log-likelihood, prepending BOS and breaking ties randomly with a fixed per-item seed. \emph{0-shot}: exhaustive removal, no substitution sampling. \emph{5-shot}: mean over five substitution seeds (max SD 1.9), using five training-set demonstrations, each with its own random substitution, identical across seeds and models, with direct answers; unavailable for Qwen3.5-27B-IT, Gemma-4-31B and Gemma-4-31B-IT. \textbf{Bold} Diff: significant at $p<0.05$ (0-shot: 95\% bootstrap CI of the paired difference excludes 0; 5-shot: exact McNemar test significant in every seed). $^{\ddagger}$: performs poorly with the plain prompt at 0-shot. IT: instruction-tuned; HS: HellaSwag; WG: WinoGrande.}
+\caption{Accuracy (\%) of LLMs on the original questions and under CCE. \textbf{Orig}: original datasets with the original answer options. \textbf{CCE}: one answer option removed and ``None of the above'' (NOTA) appended as the last option. \textbf{Diff} $=$ CCE $-$ Orig; negative values mean accuracy falls under CCE. \textbf{Bold}: significant at $p<0.05$ (0-shot: 95\% bootstrap CI of the paired difference excludes 0; 5-shot: exact McNemar test in every seed).
+\textbf{Chance}: $1/k$ for $k$ options, same for Orig and CCE (approximate for ARC, which has some 3- and 5-option questions).
+\emph{\textbf{0-shot}} evaluates every question once per option; \emph{\textbf{5-shot}} averages five substitution seeds (max SD 1.9).
+$^{\ddagger}$: low original accuracy under our plain prompt at 0-shot (ARC 61.9\% vs.\ 88.1\% for its base model), recovering at 5-shot; interpret with caution. -IT: instruction-tuned. The five benchmark datasets are ARC, CSQA, HellaSwag (HS), PIQA and WinoGrande (WG).}
 \label{tab:accuracy}
 \scriptsize
 \setlength{\tabcolsep}{2pt}
@@ -11,7 +14,7 @@
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}\cmidrule(lr){11-13}\cmidrule(lr){14-16}
 Model & Orig & CCE & Diff & Orig & CCE & Diff & Orig & CCE & Diff & Orig & CCE & Diff & Orig & CCE & Diff & Diff \\
 \midrule
-Chance & $\approx$25.0 & & & 20.0 & & & 25.0 & & & 50.0 & & & 50.0 & & & \\
+Chance & $\approx$25.0 & $\approx$25.0 & & 20.0 & 20.0 & & 25.0 & 25.0 & & 50.0 & 50.0 & & 50.0 & 50.0 & & \\
 \midrule
 \multicolumn{17}{@{}l}{\emph{0-shot}} \\
 Llama-3.2-1B                 & 44.3 & 38.4 & \textbf{{\boldmath$-$}5.9} & 52.2 & 45.9 & \textbf{{\boldmath$-$}6.3} & 30.3 & 28.5 & \textbf{{\boldmath$-$}1.8} & 56.4 & 50.1 & \textbf{{\boldmath$-$}6.3} & 50.9 & 50.0 & $-$0.9 & $-$4.2 \\
@@ -48,9 +51,12 @@ Qwen3.5-4B                   & 92.9 & 80.1 & \textbf{{\boldmath$-$}12.8} & 81.5 
 Qwen3.5-4B-IT                & 93.0 & 82.5 & \textbf{{\boldmath$-$}10.5} & 80.4 & 69.5 & \textbf{{\boldmath$-$}10.9} & 87.7 & 72.9 & \textbf{{\boldmath$-$}14.8} & 83.6 & 61.8 & \textbf{{\boldmath$-$}21.8} & 66.8 & 60.6 & \textbf{{\boldmath$-$}6.2} & $-$12.8 \\
 Qwen3.5-9B                   & 93.9 & 83.1 & \textbf{{\boldmath$-$}10.8} & 84.2 & 71.0 & \textbf{{\boldmath$-$}13.2} & 92.2 & 78.4 & \textbf{{\boldmath$-$}13.8} & 88.5 & 59.1 & \textbf{{\boldmath$-$}29.4} & 75.0 & 58.9 & \textbf{{\boldmath$-$}16.1} & $-$16.7 \\
 Qwen3.5-9B-IT                & 94.2 & 86.2 & \textbf{{\boldmath$-$}8.0} & 83.0 & 73.7 & \textbf{{\boldmath$-$}9.3} & 91.7 & 81.6 & \textbf{{\boldmath$-$}10.1} & 88.2 & 66.0 & \textbf{{\boldmath$-$}22.2} & 74.2 & 66.8 & \textbf{{\boldmath$-$}7.4} & $-$11.4 \\
+Qwen3.5-27B-IT               & 97.1 & 89.7 & \textbf{{\boldmath$-$}7.4} & 88.7 & 77.2 & \textbf{{\boldmath$-$}11.5} & 95.8 & 89.3 & \textbf{{\boldmath$-$}6.5} & 91.0 & 72.6 & \textbf{{\boldmath$-$}18.4} & 87.1 & 78.4 & \textbf{{\boldmath$-$}8.7} & $-$10.5 \\
 \addlinespace
 Gemma-4-12B                  & 90.8 & 79.0 & \textbf{{\boldmath$-$}11.8} & 78.7 & 66.2 & \textbf{{\boldmath$-$}12.5} & 73.1 & 58.6 & \textbf{{\boldmath$-$}14.5} & 84.1 & 59.4 & \textbf{{\boldmath$-$}24.7} & 70.3 & 59.4 & \textbf{{\boldmath$-$}10.9} & $-$14.9 \\
 Gemma-4-12B-IT$^{\ddagger}$  & 78.7 & 72.1 & \textbf{{\boldmath$-$}6.6} & 70.7 & 60.8 & \textbf{{\boldmath$-$}9.9} & 79.0 & 65.4 & \textbf{{\boldmath$-$}13.6} & 75.2 & 56.1 & \textbf{{\boldmath$-$}19.1} & 63.7 & 56.3 & \textbf{{\boldmath$-$}7.4} & $-$11.3 \\
+Gemma-4-31B                  & 95.5 & 85.9 & \textbf{{\boldmath$-$}9.6} & 85.2 & 72.2 & \textbf{{\boldmath$-$}13.0} & 93.0 & 78.4 & \textbf{{\boldmath$-$}14.6} & 92.7 & 67.6 & \textbf{{\boldmath$-$}25.1} & 85.0 & 79.4 & \textbf{{\boldmath$-$}5.6} & $-$13.6 \\
+Gemma-4-31B-IT               & 86.1 & 73.7 & \textbf{{\boldmath$-$}12.4} & 54.3 & 44.8 & \textbf{{\boldmath$-$}9.5} & 79.9 & 66.0 & \textbf{{\boldmath$-$}13.9} & 74.5 & 56.6 & \textbf{{\boldmath$-$}17.9} & 61.6 & 56.6 & \textbf{{\boldmath$-$}5.0} & $-$11.7 \\
 \bottomrule
 \end{tabular}}
 \end{table}

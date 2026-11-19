@@ -82,58 +82,60 @@ class Lookup:
         return float(self.d.loc[key, col])
 
 
+TABLE1_CAPTION = r"""\caption{Accuracy (\%) of LLMs on the original questions and under CCE. \textbf{Orig}: original datasets with the original answer options. \textbf{CCE}: one answer option removed and ``None of the above'' (NOTA) appended as the last option. \textbf{Diff} $=$ CCE $-$ Orig; negative values mean accuracy falls under CCE. \textbf{Bold}: significant at $p<0.05$ (0-shot: 95\% bootstrap CI of the paired difference excludes 0; 5-shot: exact McNemar test in every seed).
+\textbf{Chance}: $1/k$ for $k$ options, same for Orig and CCE (approximate for ARC, which has some 3- and 5-option questions).
+\emph{\textbf{0-shot}} evaluates every question once per option; \emph{\textbf{5-shot}} averages five substitution seeds (max SD 1.9).
+$^{\ddagger}$: low original accuracy under our plain prompt at 0-shot (ARC 61.9\% vs.\ 88.1\% for its base model), recovering at 5-shot; interpret with caution. -IT: instruction-tuned. The five benchmark datasets are ARC, CSQA, HellaSwag (HS), PIQA and WinoGrande (WG).}"""
+
+
 def table1(get):
-    def block(shots):
-        lines = []
+    blocks = []
+    for shots in (0, 5):
+        lines = [f"\\multicolumn{{17}}{{@{{}}l}}{{\\emph{{{shots}-shot}}}} \\\\"]
         for entry in MODELS:
             if entry is None:
                 lines.append("\\addlinespace")
                 continue
             name, m = entry
-            if get(m, "arc_challenge", shots, "orig", "acc") is None:
-                continue  # 5-shot not run for the three largest models
+            setting = "exhaustive" if shots == 0 else "cce_seeds"
+            if get(m, "arc_challenge", shots, setting, "acc") is None:
+                continue
             cells, diffs = [], []
             for _, ds in DATASETS:
                 orig = get(m, ds, shots, "orig", "acc")
+                cce = get(m, ds, shots, setting, "acc")
                 if shots == 0:
-                    cce = get(m, ds, 0, "exhaustive", "acc")
-                    lo = get(m, ds, 0, "exhaustive", "delta_vs_orig", "ci95_lo")
-                    hi = get(m, ds, 0, "exhaustive", "delta_vs_orig", "ci95_hi")
+                    lo = get(m, ds, 0, setting, "delta_vs_orig", "ci95_lo")
+                    hi = get(m, ds, 0, setting, "delta_vs_orig", "ci95_hi")
                     sig = lo > 0 or hi < 0
                 else:
-                    cce = get(m, ds, shots, "cce_seeds", "acc")
-                    sig = get(m, ds, shots, "cce_seeds", "mcnemar_p_max") < 0.05
+                    sig = get(m, ds, 5, setting, "mcnemar_p_max") < 0.05
                 diff = float(round1(100 * cce) - round1(100 * orig))
                 diffs.append(diff)
                 cells += [fmt(100 * orig), fmt(100 * cce), fmt(diff, sig)]
             cells.append(fmt(round1(sum(diffs) / len(diffs))))
             lines.append(f"{name:<29}& " + " & ".join(cells) + " \\\\")
-        while lines and lines[-1] == "\\addlinespace":
-            lines.pop()
-        return lines
+        blocks.append(lines)
 
-    head = " & ".join(f"\\multicolumn{{3}}{{c}}{{{n}}}" for n, _ in DATASETS)
     return "\n".join([
         r"\begin{table}[ht!]",
         r"\centering",
-        r"\caption{Accuracy (\%) on original items (Orig), under CCE, and their difference (Diff $=$ CCE $-$ Orig, computed from the values shown; positive indicates improvement). CCE replaces one option with ``None of the above'' and scores answer letters by log-likelihood, prepending BOS and breaking ties randomly with a fixed per-item seed. \emph{0-shot}: exhaustive removal, no substitution sampling. \emph{5-shot}: mean over five substitution seeds (max SD 1.9), using five training-set demonstrations, each with its own random substitution, identical across seeds and models, with direct answers; unavailable for Qwen3.5-27B-IT, Gemma-4-31B and Gemma-4-31B-IT. \textbf{Bold} Diff: significant at $p<0.05$ (0-shot: 95\% bootstrap CI of the paired difference excludes 0; 5-shot: exact McNemar test significant in every seed). $^{\ddagger}$: performs poorly with the plain prompt at 0-shot. IT: instruction-tuned; HS: HellaSwag; WG: WinoGrande.}",
+        TABLE1_CAPTION,
         r"\label{tab:accuracy}",
         r"\scriptsize",
         r"\setlength{\tabcolsep}{2pt}",
         r"\resizebox{\textwidth}{!}{%",
         r"\begin{tabular}{@{}l rrr rrr rrr rrr rrr r@{}}",
         r"\toprule",
-        "& " + head + r" & Avg \\",
+        "& " + " & ".join(f"\\multicolumn{{3}}{{c}}{{{n}}}" for n, _ in DATASETS) + r" & Avg \\",
         GROUP_HEAD,
         "Model" + " & Orig & CCE & Diff" * len(DATASETS) + r" & Diff \\",
         r"\midrule",
-        r"Chance & $\approx$25.0 & & & 20.0 & & & 25.0 & & & 50.0 & & & 50.0 & & & \\",
+        r"Chance & $\approx$25.0 & $\approx$25.0 & & 20.0 & 20.0 & & 25.0 & 25.0 & & 50.0 & 50.0 & & 50.0 & 50.0 & & \\",
         r"\midrule",
-        r"\multicolumn{17}{@{}l}{\emph{0-shot}} \\",
-        *block(0),
+        *blocks[0],
         r"\midrule",
-        r"\multicolumn{17}{@{}l}{\emph{5-shot}} \\",
-        *block(5),
+        *blocks[1],
         r"\bottomrule",
         r"\end{tabular}}",
         r"\end{table}",
@@ -156,27 +158,31 @@ def table2(get):
             hi = get(m, ds, 0, "exhaustive", "NOTA_discrimination", "ci95_hi")
             last = get(m, ds, 0, "orig", "last_letter_rate")
             half_widths.append(100 * (hi - lo) / 2)
-            cells += [fmt(100 * gr, bold=lo > 0), fmt(100 * dr), fmt(100 * last)]
+            d = float(round1(100 * gr) - round1(100 * dr))
+            cells += [fmt(100 * gr), fmt(100 * dr), fmt(d, bold=lo > 0 or hi < 0), fmt(100 * last)]
         lines.append(f"{name:<29}& " + " & ".join(cells) + " \\\\")
     h = np.array(half_widths)
-    head = " & ".join(f"\\multicolumn{{3}}{{c}}{{{n}}}" for n, _ in DATASETS)
+    head = " & ".join(f"\\multicolumn{{4}}{{c}}{{{n}}}" for n, _ in DATASETS)
+    cm = "".join(f"\\cmidrule(lr){{{2 + 4 * i}-{5 + 4 * i}}}" for i in range(len(DATASETS)))
     tex = "\n".join([
         r"\begin{table}[ht!]",
         r"\centering",
-        r"\caption{NOTA selection rate (\%) in two 0-shot regimes, with the last-option rate $L$ (\%) on the original items. GR (gold removed): the correct answer is removed, so NOTA is correct and its selection rate equals accuracy. DR (distractor removed): a wrong option is removed, so NOTA is incorrect. Higher GR than DR indicates detection of missing answers; similar rates suggest a general NOTA preference. $L$ is a reference for position preference that also reflects option content and correctness. \textbf{Bold}: GR significantly exceeds DR (95\% bootstrap CI for the per-item difference excludes 0); median CI half-width for the gap: "
-        + f"{np.median(h):.1f} points (maximum {h.max():.1f}; full intervals in the repository). Excluding coherence-flagged items changes no boldface. $^{{\\ddagger}}$: see Table~\\ref{{tab:accuracy}}. IT: instruction-tuned; HS: HellaSwag; WG: WinoGrande.}}",
+        r"\caption{How often models choose ``None of the above'' (NOTA, \%) when it is correct and when it is not (0-shot, every option removed in turn). GR: the correct answer was removed, so NOTA is correct (rate $=$ accuracy). DR: a wrong option was removed, so the correct answer is still present and NOTA is incorrect. $D = \text{GR} - \text{DR}$ is NOTA discrimination: large $D$ means the model detects missing answers; $D \approx 0$ with similar GR and DR means it picks NOTA regardless of the answer (a preference, not detection). $L$: rate of choosing the last option on the original questions, where NOTA always appears, as a rough reference for position preference. \textbf{Bold} $D$: 95\% bootstrap CI of the per-item gap excludes 0 (median half-width "
+        + f"{np.median(h):.1f}, max {h.max():.1f} points; full CIs in the repository); no boldface changes when coherence-flagged items are excluded. "
+        + r"$^{\ddagger}$: low original accuracy under our plain prompt; interpret with caution. IT: instruction-tuned; HS: HellaSwag; WG: WinoGrande.}",
         r"\label{tab:regime}",
         r"\scriptsize",
-        r"\setlength{\tabcolsep}{1.9pt}",
-        r"\begin{tabular}{@{}l rrr rrr rrr rrr rrr@{}}",
+        r"\setlength{\tabcolsep}{2pt}",
+        r"\resizebox{\textwidth}{!}{%",
+        r"\begin{tabular}{@{}l rrrr rrrr rrrr rrrr rrrr@{}}",
         r"\toprule",
         "& " + head + r" \\",
-        GROUP_HEAD,
-        "Model" + " & GR & DR & $L$" * len(DATASETS) + r" \\",
+        cm,
+        "Model" + " & GR & DR & $D$ & $L$" * len(DATASETS) + r" \\",
         r"\midrule",
         *lines,
         r"\bottomrule",
-        r"\end{tabular}",
+        r"\end{tabular}}",
         r"\end{table}",
         "",
     ])
@@ -201,17 +207,18 @@ def table3(path, bold_at=85.0):
     return "\n".join([
         r"\begin{table}[ht!]",
         r"\centering",
-        r"\caption{NOTA selection rate (\%) under cloze scoring, which scores each option by the log-likelihood of its full text (0-shot, one random removal per item, seed 0). Raw: summed log-likelihood, split into GR (correct answer removed) and DR (a wrong option removed). Norm: the same log-likelihoods divided by option length in characters, over all items. Parentheses: mean length of the remaining original options in characters (``None of the above'' has 17). \textbf{Bold}: NOTA chosen on at least "
-        + f"{bold_at:g}" + r"\% of items. HS: HellaSwag; WG: WinoGrande.}",
+        r"\caption{Under cloze scoring, how often models choose ``None of the above'' (NOTA, \%) follows option length rather than answer absence, which is why all other results score answer letters. Each option is scored by the log-likelihood of its full text (0-shot, one random removal per question, seed 0). Raw: summed log-likelihood, shown separately for GR (correct answer removed, so NOTA is correct) and DR (a wrong option removed, so NOTA is incorrect); similar GR and DR mean no detection. Norm: the same log-likelihoods divided by option length in characters, over all questions. Parentheses: mean length in characters of the remaining original options; ``None of the above'' has 17. \textbf{Bold}: NOTA chosen on at least "
+        + f"{bold_at:g}" + r"\% of questions. HS: HellaSwag; WG: WinoGrande.}",
         r"\label{tab:cloze}",
         r"\scriptsize",
-        r"\setlength{\tabcolsep}{1.6pt}",
+        r"\setlength{\tabcolsep}{1.1pt}",
         r"\begin{tabular}{@{}l rrr rrr rrr rrr rrr@{}}",
         r"\toprule",
         "& " + head + r" \\",
         GROUP_HEAD,
         "&" + " & ".join([r" \multicolumn{2}{c}{Raw} & Norm"] * len(DATASETS)) + r" \\",
-        "Model" + " & GR & DR &" * len(DATASETS) + r" \\",
+        "".join(f"\\cmidrule(lr){{{2 + 3 * i}-{3 + 3 * i}}}" for i in range(len(DATASETS))),
+        "Model" + " & GR & DR & all" * len(DATASETS) + r" \\",
         r"\midrule",
         *rows,
         r"\bottomrule",
