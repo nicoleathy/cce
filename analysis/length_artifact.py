@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Length-artifact analysis for the earlier cloze-scored CCE runs.
+Length-artifact analysis for the cloze-scored CCE runs (Section 4.4, Table 3).
 
 In cloze scoring, each option's text is scored as a free continuation of the
 question by its summed log-likelihood. "None of the above" (4 tokens) then
@@ -9,12 +9,12 @@ the NOTA selection rate under cloze scoring tracks option length, and how it
 changes when the same log-likelihoods are length-normalised (per character).
 
 Usage:
-    python analysis/length_artifact.py --root outputs/cloze [--seed 0] [--out length_artifact.csv]
+    python analysis/length_artifact.py --root <cloze runs> [--seed 0] [--out length_artifact.csv]
 
-Expected layout: <root>/<org>/<model>/cce_0shot_seed<N>/<org__model>/samples_<task>_<timestamp>.jsonl
-Tasks are the cloze tasks in tasks/cce_cloze (arc_challenge_cce_cloze, ...);
-the older names without the _cce_cloze suffix are also accepted. For each
-task the newest samples file is taken.
+Expected layout (what scripts/run_cloze.sh writes):
+    <root>/<org>/<model>/cce_0shot_seed<N>/<org__model>/samples_<task>_<timestamp>.jsonl
+Task names may carry the "_cloze_cce" suffix of tasks/cce_cloze (the paper's
+runs used the bare dataset names); for each task the newest samples file is taken.
 """
 import argparse
 import csv
@@ -77,7 +77,7 @@ def main():
     files = {}
     for f in glob.glob(pattern, recursive=True):
         m = re.search(r"/([^/]+/[^/]+)/cce_0shot_seed\d+/[^/]+/samples_(.+?)_\d{4}-\d{2}-\d{2}T", f)
-        task = m.group(2).removesuffix("_cce_cloze") if m else None
+        task = m.group(2).removesuffix("_cloze_cce") if m else None
         if task not in TASKS:
             continue
         key = (m.group(1), task)

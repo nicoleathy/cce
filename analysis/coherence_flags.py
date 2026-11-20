@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
 Flag items whose NOTA substitution may be incoherent, using the classifier
-released with WiCkeD (Elhady et al., 2025): ahmedselhady/bert-base-uncased-sba-clf.
-WiCkeD only applied NOTA to items the classifier labels "negative".
+from the original WiCkeD code (ahmedselhady/bert-base-uncased-sba-clf; see the
+commented-out can_be_flipped() in lm_eval/tasks/arc/utils.py). WiCkeD only
+applied NOTA to items the classifier labels "negative" and left the rest
+unchanged.
 
 The classifier sees the question text only, not the options, and was trained
-on WiCkeD's knowledge benchmarks, so treat its output as an approximate screen.
+on WiCkeD's knowledge benchmarks.
 
 Usage:
-    python analysis/coherence_flags.py --out results/coherence_flags.csv
+    python analysis/coherence_flags.py --out results/tables/coherence_flags.csv
 
 Output CSV columns: dataset, item_id, flippable (1/0), label, score, text.
 item_id matches cce_item_id in the sample logs, so paired_analysis.py can
@@ -20,7 +22,7 @@ import csv
 import datasets
 from transformers import pipeline
 
-# Same dataset paths and evaluation splits as the cce_mcf yaml files.
+# Same dataset paths and evaluation splits as the tasks/cce_mcf yaml files.
 SOURCES = {
     "arc_challenge": ("allenai/ai2_arc", "ARC-Challenge", "test"),
     "commonsense_qa": ("tau/commonsense_qa", None, "validation"),

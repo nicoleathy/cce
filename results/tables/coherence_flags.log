@@ -1,0 +1,6 @@
+arc_challenge: 1172 items, 457 flagged (39.0%)
+commonsense_qa: 1221 items, 34 flagged (2.8%)
+hellaswag: 10042 items, 958 flagged (9.5%)
+piqa: 1838 items, 25 flagged (1.4%)
+winogrande: 1267 items, 10 flagged (0.8%)
+wrote coherence_flags.csv

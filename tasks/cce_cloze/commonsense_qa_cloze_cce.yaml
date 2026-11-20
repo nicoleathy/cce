@@ -1,0 +1,7 @@
+include: _cloze_template_yaml
+task: commonsense_qa_cloze_cce
+tag: cloze_cce
+dataset_path: tau/commonsense_qa
+training_split: train
+validation_split: validation
+process_docs: !function utils.csqa_process_docs

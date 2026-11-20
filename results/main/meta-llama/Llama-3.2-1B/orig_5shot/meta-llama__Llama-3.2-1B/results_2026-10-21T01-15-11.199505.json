@@ -1,0 +1,434 @@
+{
+  "results": {
+    "arc_challenge_mcf_orig": {
+      "name": "arc_challenge_mcf_orig",
+      "alias": "arc_challenge_mcf_orig",
+      "sample_len": 1172,
+      "acc,none": 0.3609215017064846,
+      "acc_stderr,none": 0.01403476138617546,
+      "last_letter_rate,none": 0.07423208191126279,
+      "last_letter_rate_stderr,none": 0.007660699662711795
+    },
+    "commonsense_qa_mcf_orig": {
+      "name": "commonsense_qa_mcf_orig",
+      "alias": "commonsense_qa_mcf_orig",
+      "sample_len": 1221,
+      "acc,none": 0.28501228501228504,
+      "acc_stderr,none": 0.012924125439047217,
+      "last_letter_rate,none": 0.0343980343980344,
+      "last_letter_rate_stderr,none": 0.005217782459350282
+    },
+    "hellaswag_mcf_orig": {
+      "name": "hellaswag_mcf_orig",
+      "alias": "hellaswag_mcf_orig",
+      "sample_len": 10042,
+      "acc,none": 0.2581159131647082,
+      "acc_stderr,none": 0.004367037632204537,
+      "last_letter_rate,none": 0.12666799442342164,
+      "last_letter_rate_stderr,none": 0.003319209400135137
+    },
+    "piqa_mcf_orig": {
+      "name": "piqa_mcf_orig",
+      "alias": "piqa_mcf_orig",
+      "sample_len": 1838,
+      "acc,none": 0.499455930359086,
+      "acc_stderr,none": 0.011665817258899173,
+      "last_letter_rate,none": 0.19912948857453755,
+      "last_letter_rate_stderr,none": 0.009317391893706855
+    },
+    "winogrande_mcf_orig": {
+      "name": "winogrande_mcf_orig",
+      "alias": "winogrande_mcf_orig",
+      "sample_len": 1267,
+      "acc,none": 0.47987371744277824,
+      "acc_stderr,none": 0.014041096664344334,
+      "last_letter_rate,none": 0.48145224940805054,
+      "last_letter_rate_stderr,none": 0.014042813708888378
+    }
+  },
+  "group_subtasks": {},
+  "configs": {
+    "arc_challenge_mcf_orig": {
+      "task": "arc_challenge_mcf_orig",
+      "dataset_path": "allenai/ai2_arc",
+      "dataset_name": "ARC-Challenge",
+      "training_split": "train",
+      "test_split": "test",
+      "fewshot_split": "train",
+      "process_docs": "    def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:\n        seed = _fewshot_seed() if _is_fewshot_split(dataset) else _eval_seed()\n\n        def _proc(doc, idx):\n            stem, options, gold = extract(doc)\n            j = _item_rng(seed, idx).randrange(len(options)) if cce else None\n            return _record(stem, options, gold, j, idx)\n\n        return dataset.map(_proc, with_indices=True, load_from_cache_file=False)\n",
+      "doc_to_text": "def doc_to_text(doc):\n    return doc[\"cce_query\"]\n",
+      "doc_to_target": "def doc_to_target(doc):\n    return int(doc[\"cce_gold\"])\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def doc_to_choice(doc):\n    return doc[\"cce_letters\"]\n",
+      "process_results": "def process_results_orig(doc, results):\n    \"\"\"acc, plus how often the LAST letter is picked when the last option is an\n    ordinary one. Compare with the CCE NOTA rates, where NOTA is always last,\n    to separate a NOTA preference from a last-position preference.\"\"\"\n    pred = _pred(results)\n    return {\n        \"acc\": float(pred == int(doc[\"cce_gold\"])),\n        \"last_letter_rate\": float(pred == len(doc[\"cce_choices\"]) - 1),\n    }\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": "train",
+        "process_docs": "<function _make_single.<locals>.process_docs>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function doc_to_text>",
+        "doc_to_choice": "<function doc_to_choice>",
+        "doc_to_target": "<function doc_to_target>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 5,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "last_letter_rate",
+          "aggregation": "mean",
+          "higher_is_better": false
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 4.0,
+        "pretrained": "meta-llama/Llama-3.2-1B",
+        "parallelize": false,
+        "attn_implementation": "sdpa",
+        "dtype": "bfloat16",
+        "config_source": "tasks/cce_mcf/arc_challenge_mcf_orig.yaml"
+      }
+    },
+    "commonsense_qa_mcf_orig": {
+      "task": "commonsense_qa_mcf_orig",
+      "dataset_path": "tau/commonsense_qa",
+      "training_split": "train",
+      "validation_split": "validation",
+      "fewshot_split": "train",
+      "process_docs": "    def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:\n        seed = _fewshot_seed() if _is_fewshot_split(dataset) else _eval_seed()\n\n        def _proc(doc, idx):\n            stem, options, gold = extract(doc)\n            j = _item_rng(seed, idx).randrange(len(options)) if cce else None\n            return _record(stem, options, gold, j, idx)\n\n        return dataset.map(_proc, with_indices=True, load_from_cache_file=False)\n",
+      "doc_to_text": "def doc_to_text(doc):\n    return doc[\"cce_query\"]\n",
+      "doc_to_target": "def doc_to_target(doc):\n    return int(doc[\"cce_gold\"])\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def doc_to_choice(doc):\n    return doc[\"cce_letters\"]\n",
+      "process_results": "def process_results_orig(doc, results):\n    \"\"\"acc, plus how often the LAST letter is picked when the last option is an\n    ordinary one. Compare with the CCE NOTA rates, where NOTA is always last,\n    to separate a NOTA preference from a last-position preference.\"\"\"\n    pred = _pred(results)\n    return {\n        \"acc\": float(pred == int(doc[\"cce_gold\"])),\n        \"last_letter_rate\": float(pred == len(doc[\"cce_choices\"]) - 1),\n    }\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": "train",
+        "process_docs": "<function _make_single.<locals>.process_docs>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function doc_to_text>",
+        "doc_to_choice": "<function doc_to_choice>",
+        "doc_to_target": "<function doc_to_target>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 5,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "last_letter_rate",
+          "aggregation": "mean",
+          "higher_is_better": false
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 4.0,
+        "pretrained": "meta-llama/Llama-3.2-1B",
+        "parallelize": false,
+        "attn_implementation": "sdpa",
+        "dtype": "bfloat16",
+        "config_source": "tasks/cce_mcf/commonsense_qa_mcf_orig.yaml"
+      }
+    },
+    "hellaswag_mcf_orig": {
+      "task": "hellaswag_mcf_orig",
+      "dataset_path": "Rowan/hellaswag",
+      "training_split": "train",
+      "validation_split": "validation",
+      "fewshot_split": "train",
+      "process_docs": "    def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:\n        seed = _fewshot_seed() if _is_fewshot_split(dataset) else _eval_seed()\n\n        def _proc(doc, idx):\n            stem, options, gold = extract(doc)\n            j = _item_rng(seed, idx).randrange(len(options)) if cce else None\n            return _record(stem, options, gold, j, idx)\n\n        return dataset.map(_proc, with_indices=True, load_from_cache_file=False)\n",
+      "doc_to_text": "def doc_to_text(doc):\n    return doc[\"cce_query\"]\n",
+      "doc_to_target": "def doc_to_target(doc):\n    return int(doc[\"cce_gold\"])\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def doc_to_choice(doc):\n    return doc[\"cce_letters\"]\n",
+      "process_results": "def process_results_orig(doc, results):\n    \"\"\"acc, plus how often the LAST letter is picked when the last option is an\n    ordinary one. Compare with the CCE NOTA rates, where NOTA is always last,\n    to separate a NOTA preference from a last-position preference.\"\"\"\n    pred = _pred(results)\n    return {\n        \"acc\": float(pred == int(doc[\"cce_gold\"])),\n        \"last_letter_rate\": float(pred == len(doc[\"cce_choices\"]) - 1),\n    }\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": "train",
+        "process_docs": "<function _make_single.<locals>.process_docs>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function doc_to_text>",
+        "doc_to_choice": "<function doc_to_choice>",
+        "doc_to_target": "<function doc_to_target>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 5,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "last_letter_rate",
+          "aggregation": "mean",
+          "higher_is_better": false
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 4.0,
+        "pretrained": "meta-llama/Llama-3.2-1B",
+        "parallelize": false,
+        "attn_implementation": "sdpa",
+        "dtype": "bfloat16",
+        "config_source": "tasks/cce_mcf/hellaswag_mcf_orig.yaml"
+      }
+    },
+    "piqa_mcf_orig": {
+      "task": "piqa_mcf_orig",
+      "dataset_path": "baber/piqa",
+      "training_split": "train",
+      "validation_split": "validation",
+      "fewshot_split": "train",
+      "process_docs": "    def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:\n        seed = _fewshot_seed() if _is_fewshot_split(dataset) else _eval_seed()\n\n        def _proc(doc, idx):\n            stem, options, gold = extract(doc)\n            j = _item_rng(seed, idx).randrange(len(options)) if cce else None\n            return _record(stem, options, gold, j, idx)\n\n        return dataset.map(_proc, with_indices=True, load_from_cache_file=False)\n",
+      "doc_to_text": "def doc_to_text(doc):\n    return doc[\"cce_query\"]\n",
+      "doc_to_target": "def doc_to_target(doc):\n    return int(doc[\"cce_gold\"])\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def doc_to_choice(doc):\n    return doc[\"cce_letters\"]\n",
+      "process_results": "def process_results_orig(doc, results):\n    \"\"\"acc, plus how often the LAST letter is picked when the last option is an\n    ordinary one. Compare with the CCE NOTA rates, where NOTA is always last,\n    to separate a NOTA preference from a last-position preference.\"\"\"\n    pred = _pred(results)\n    return {\n        \"acc\": float(pred == int(doc[\"cce_gold\"])),\n        \"last_letter_rate\": float(pred == len(doc[\"cce_choices\"]) - 1),\n    }\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": "train",
+        "process_docs": "<function _make_single.<locals>.process_docs>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function doc_to_text>",
+        "doc_to_choice": "<function doc_to_choice>",
+        "doc_to_target": "<function doc_to_target>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 5,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "last_letter_rate",
+          "aggregation": "mean",
+          "higher_is_better": false
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 4.0,
+        "pretrained": "meta-llama/Llama-3.2-1B",
+        "parallelize": false,
+        "attn_implementation": "sdpa",
+        "dtype": "bfloat16",
+        "config_source": "tasks/cce_mcf/piqa_mcf_orig.yaml"
+      }
+    },
+    "winogrande_mcf_orig": {
+      "task": "winogrande_mcf_orig",
+      "dataset_path": "allenai/winogrande",
+      "dataset_name": "winogrande_xl",
+      "training_split": "train",
+      "validation_split": "validation",
+      "fewshot_split": "train",
+      "process_docs": "    def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:\n        seed = _fewshot_seed() if _is_fewshot_split(dataset) else _eval_seed()\n\n        def _proc(doc, idx):\n            stem, options, gold = extract(doc)\n            j = _item_rng(seed, idx).randrange(len(options)) if cce else None\n            return _record(stem, options, gold, j, idx)\n\n        return dataset.map(_proc, with_indices=True, load_from_cache_file=False)\n",
+      "doc_to_text": "def doc_to_text(doc):\n    return doc[\"cce_query\"]\n",
+      "doc_to_target": "def doc_to_target(doc):\n    return int(doc[\"cce_gold\"])\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def doc_to_choice(doc):\n    return doc[\"cce_letters\"]\n",
+      "process_results": "def process_results_orig(doc, results):\n    \"\"\"acc, plus how often the LAST letter is picked when the last option is an\n    ordinary one. Compare with the CCE NOTA rates, where NOTA is always last,\n    to separate a NOTA preference from a last-position preference.\"\"\"\n    pred = _pred(results)\n    return {\n        \"acc\": float(pred == int(doc[\"cce_gold\"])),\n        \"last_letter_rate\": float(pred == len(doc[\"cce_choices\"]) - 1),\n    }\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": "train",
+        "process_docs": "<function _make_single.<locals>.process_docs>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function doc_to_text>",
+        "doc_to_choice": "<function doc_to_choice>",
+        "doc_to_target": "<function doc_to_target>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 5,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "last_letter_rate",
+          "aggregation": "mean",
+          "higher_is_better": false
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 4.0,
+        "pretrained": "meta-llama/Llama-3.2-1B",
+        "parallelize": false,
+        "attn_implementation": "sdpa",
+        "dtype": "bfloat16",
+        "config_source": "tasks/cce_mcf/winogrande_mcf_orig.yaml"
+      }
+    }
+  },
+  "versions": {
+    "arc_challenge_mcf_orig": 4.0,
+    "commonsense_qa_mcf_orig": 4.0,
+    "hellaswag_mcf_orig": 4.0,
+    "piqa_mcf_orig": 4.0,
+    "winogrande_mcf_orig": 4.0
+  },
+  "n-shot": {
+    "arc_challenge_mcf_orig": 5,
+    "commonsense_qa_mcf_orig": 5,
+    "hellaswag_mcf_orig": 5,
+    "piqa_mcf_orig": 5,
+    "winogrande_mcf_orig": 5
+  },
+  "higher_is_better": {
+    "arc_challenge_mcf_orig": {
+      "acc": true,
+      "last_letter_rate": false
+    },
+    "commonsense_qa_mcf_orig": {
+      "acc": true,
+      "last_letter_rate": false
+    },
+    "hellaswag_mcf_orig": {
+      "acc": true,
+      "last_letter_rate": false
+    },
+    "piqa_mcf_orig": {
+      "acc": true,
+      "last_letter_rate": false
+    },
+    "winogrande_mcf_orig": {
+      "acc": true,
+      "last_letter_rate": false
+    }
+  },
+  "n-samples": {
+    "arc_challenge_mcf_orig": {
+      "original": 1172,
+      "effective": 1172
+    },
+    "commonsense_qa_mcf_orig": {
+      "original": 1221,
+      "effective": 1221
+    },
+    "hellaswag_mcf_orig": {
+      "original": 10042,
+      "effective": 10042
+    },
+    "piqa_mcf_orig": {
+      "original": 1838,
+      "effective": 1838
+    },
+    "winogrande_mcf_orig": {
+      "original": 1267,
+      "effective": 1267
+    }
+  },
+  "config": {
+    "model": "hf",
+    "model_args": {
+      "pretrained": "meta-llama/Llama-3.2-1B",
+      "parallelize": false,
+      "attn_implementation": "sdpa",
+      "dtype": "bfloat16"
+    },
+    "model_num_parameters": 1235814400,
+    "model_dtype": "torch.bfloat16",
+    "model_revision": "main",
+    "model_sha": "4e20de362430cd3b72f300e6b0f18e50e7166e08",
+    "batch_size": "8",
+    "batch_sizes": [],
+    "device": "cuda",
+    "use_cache": null,
+    "limit": null,
+    "bootstrap_iters": 100000,
+    "gen_kwargs": {},
+    "random_seed": 0,
+    "numpy_seed": 0,
+    "torch_seed": 0,
+    "fewshot_seed": 1234
+  },
+  "date": 1792515688.6676726,
+  "transformers_version": "5.20.1",
+  "lm_eval_version": "0.4.13",
+  "tokenizer_pad_token": [
+    "<|end_of_text|>",
+    "128001"
+  ],
+  "tokenizer_eos_token": [
+    "<|end_of_text|>",
+    "128001"
+  ],
+  "tokenizer_bos_token": [
+    "<|begin_of_text|>",
+    "128000"
+  ],
+  "eot_token_id": 128001,
+  "max_length": 131072,
+  "task_hashes": {
+    "arc_challenge_mcf_orig": "922087275aa674234282ab9b64e68be2499bbec5819e2a5c57b841ab6813b3dd",
+    "commonsense_qa_mcf_orig": "608bc845c897a41702de440638ed8ebcb5fb7283f421326b96d897fd324844f9",
+    "hellaswag_mcf_orig": "9511d5b164669552b413cbf64ce110287bc471bb292235eaab59242d8099c036",
+    "piqa_mcf_orig": "226fae7a5aec2f052c8dbd27ca15833e3ff44b2879a23ffe2c51234dab082e5a",
+    "winogrande_mcf_orig": "818fcfc3356dc13836ac4d469eb800ffd182056439feeb1fc7a75d2a7a3b1994"
+  },
+  "model_source": "hf",
+  "model_name": "meta-llama/Llama-3.2-1B",
+  "model_name_sanitized": "meta-llama__Llama-3.2-1B",
+  "system_instruction": null,
+  "system_instruction_sha": null,
+  "fewshot_as_multiturn": null,
+  "chat_template": null,
+  "chat_template_sha": null,
+  "total_evaluation_time_seconds": "833.9646288850345"
+}

@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-Compare a robustness run (chat template, float32, NOTA wording) with the main results.
+Compare a robustness run (chat template, float32, NOTA wording) with the main
+results.
 
 Usage:
-    python analysis/compare_runs.py --base results/cce_tables.csv --new results/robustness/chat.csv
+    python analysis/compare_runs.py --base results/tables/cce_tables_final.csv --new cce_chat.csv
 
 For every (model, dataset) present in both files at 0-shot (exhaustive), prints
 GR rate, DR NOTA rate and the GR-DR gap in each, the change in the gap, and
 whether the gap is significant in each (95% CI excludes 0). Ends with the
-summary numbers reported in Section 4.5.
+summary numbers quoted in Section 4.5.
 """
 import argparse
 import pandas as pd

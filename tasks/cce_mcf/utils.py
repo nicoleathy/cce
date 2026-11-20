@@ -30,6 +30,12 @@ that split too, so the train split is handled separately:
 
 Pair this with a fixed few-shot sampling seed in lm-eval
 (--seed s,s,s,<fixed>) so the same demonstration items are drawn in every run.
+
+Environment variables:
+    CCE_SEED          substitution seed for the *_mcf_cce tasks (default 0)
+    CCE_FEWSHOT_SEED  substitution seed for the demonstrations (default 1234)
+    CCE_NOTA          NOTA wording (default "None of the above"); the wording
+                      robustness check uses "None of these options is correct"
 """
 
 import os

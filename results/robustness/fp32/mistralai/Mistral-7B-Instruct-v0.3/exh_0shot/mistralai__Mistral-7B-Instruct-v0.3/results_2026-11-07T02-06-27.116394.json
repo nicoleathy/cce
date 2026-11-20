@@ -1,0 +1,279 @@
+{
+  "results": {
+    "arc_challenge_mcf_exh": {
+      "name": "arc_challenge_mcf_exh",
+      "alias": "arc_challenge_mcf_exh",
+      "sample_len": 4687,
+      "acc,none": 0.669298058459569,
+      "acc_stderr,none": 0.006872694078843432,
+      "acc_gold_removed,none": 0.24658703071672355,
+      "acc_gold_removed_stderr,none": "N/A",
+      "acc_distractor_removed,none": 0.8102418207681366,
+      "acc_distractor_removed_stderr,none": "N/A",
+      "nota_rate_distractor,none": 0.029018492176386912,
+      "nota_rate_distractor_stderr,none": "N/A",
+      "other_distractor_rate,none": 0.16073968705547653,
+      "other_distractor_rate_stderr,none": "N/A",
+      "gold_removed_share,none": 0.2500533390228291,
+      "gold_removed_share_stderr,none": 0.006326017294251238
+    },
+    "winogrande_mcf_exh": {
+      "name": "winogrande_mcf_exh",
+      "alias": "winogrande_mcf_exh",
+      "sample_len": 2534,
+      "acc,none": 0.5256511444356748,
+      "acc_stderr,none": 0.009921564059907415,
+      "acc_gold_removed,none": 0.6566692975532754,
+      "acc_gold_removed_stderr,none": "N/A",
+      "acc_distractor_removed,none": 0.39463299131807417,
+      "acc_distractor_removed_stderr,none": "N/A",
+      "nota_rate_distractor,none": 0.6053670086819258,
+      "nota_rate_distractor_stderr,none": "N/A",
+      "other_distractor_rate,none": 0.0,
+      "other_distractor_rate_stderr,none": "N/A",
+      "gold_removed_share,none": 0.5,
+      "gold_removed_share_stderr,none": 0.009934646294640047
+    }
+  },
+  "group_subtasks": {},
+  "configs": {
+    "arc_challenge_mcf_exh": {
+      "task": "arc_challenge_mcf_exh",
+      "dataset_path": "allenai/ai2_arc",
+      "dataset_name": "ARC-Challenge",
+      "training_split": "train",
+      "test_split": "test",
+      "fewshot_split": "train",
+      "process_docs": "    def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:\n        if _is_fewshot_split(dataset):\n            return single(dataset)  # few-shot pool: never expanded\n\n        def _expand(batch, idxs):\n            out = {c: [] for c in COLUMNS}\n            for row, idx in enumerate(idxs):\n                stem, options, gold = extract({k: v[row] for k, v in batch.items()})\n                for j in range(len(options)):\n                    rec = _record(stem, options, gold, j, idx)\n                    for c in COLUMNS:\n                        out[c].append(rec[c])\n            return out\n\n        return dataset.map(\n            _expand,\n            batched=True,\n            with_indices=True,\n            remove_columns=dataset.column_names,\n            load_from_cache_file=False,\n        )\n",
+      "doc_to_text": "def doc_to_text(doc):\n    return doc[\"cce_query\"]\n",
+      "doc_to_target": "def doc_to_target(doc):\n    return int(doc[\"cce_gold\"])\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def doc_to_choice(doc):\n    return doc[\"cce_letters\"]\n",
+      "process_results": "def process_results_cce(doc, results):\n    \"\"\"Per-item metrics; NaN marks metrics that do not apply to this regime.\n\n    acc_gold_removed        A_GR (equals the NOTA selection rate in GR)\n    acc_distractor_removed  A_DR\n    nota_rate_distractor    NOTA chosen although the gold is present\n    other_distractor_rate   DR items where a remaining wrong option was chosen\n    gold_removed_share      realised GR fraction\n    \"\"\"\n    pred = _pred(results, doc)\n    gold = int(doc[\"cce_gold\"])\n    nota = len(doc[\"cce_choices\"]) - 1  # NOTA is always the last option\n    gr = doc[\"cce_regime\"] == \"gold_removed\"\n    nan = float(\"nan\")\n    acc = float(pred == gold)\n    return {\n        \"acc\": acc,\n        \"acc_gold_removed\": acc if gr else nan,\n        \"acc_distractor_removed\": nan if gr else acc,\n        \"nota_rate_distractor\": nan if gr else float(pred == nota),\n        \"other_distractor_rate\": nan if gr else float(pred not in (gold, nota)),\n        \"gold_removed_share\": float(gr),\n    }\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": "train",
+        "process_docs": "<function _make_exhaustive.<locals>.process_docs>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function doc_to_text>",
+        "doc_to_choice": "<function doc_to_choice>",
+        "doc_to_target": "<function doc_to_target>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "acc_gold_removed",
+          "aggregation": "def nanmean(items):\n    arr = np.asarray(items, dtype=float)\n    if arr.size == 0 or np.all(np.isnan(arr)):\n        return float(\"nan\")\n    return float(np.nanmean(arr))\n",
+          "higher_is_better": true
+        },
+        {
+          "metric": "acc_distractor_removed",
+          "aggregation": "def nanmean(items):\n    arr = np.asarray(items, dtype=float)\n    if arr.size == 0 or np.all(np.isnan(arr)):\n        return float(\"nan\")\n    return float(np.nanmean(arr))\n",
+          "higher_is_better": true
+        },
+        {
+          "metric": "nota_rate_distractor",
+          "aggregation": "def nanmean(items):\n    arr = np.asarray(items, dtype=float)\n    if arr.size == 0 or np.all(np.isnan(arr)):\n        return float(\"nan\")\n    return float(np.nanmean(arr))\n",
+          "higher_is_better": false
+        },
+        {
+          "metric": "other_distractor_rate",
+          "aggregation": "def nanmean(items):\n    arr = np.asarray(items, dtype=float)\n    if arr.size == 0 or np.all(np.isnan(arr)):\n        return float(\"nan\")\n    return float(np.nanmean(arr))\n",
+          "higher_is_better": false
+        },
+        {
+          "metric": "gold_removed_share",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 4.0,
+        "pretrained": "mistralai/Mistral-7B-Instruct-v0.3",
+        "parallelize": true,
+        "attn_implementation": "sdpa",
+        "dtype": "float32",
+        "config_source": "tasks/cce_mcf/arc_challenge_mcf_exh.yaml"
+      }
+    },
+    "winogrande_mcf_exh": {
+      "task": "winogrande_mcf_exh",
+      "dataset_path": "allenai/winogrande",
+      "dataset_name": "winogrande_xl",
+      "training_split": "train",
+      "validation_split": "validation",
+      "fewshot_split": "train",
+      "process_docs": "    def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:\n        if _is_fewshot_split(dataset):\n            return single(dataset)  # few-shot pool: never expanded\n\n        def _expand(batch, idxs):\n            out = {c: [] for c in COLUMNS}\n            for row, idx in enumerate(idxs):\n                stem, options, gold = extract({k: v[row] for k, v in batch.items()})\n                for j in range(len(options)):\n                    rec = _record(stem, options, gold, j, idx)\n                    for c in COLUMNS:\n                        out[c].append(rec[c])\n            return out\n\n        return dataset.map(\n            _expand,\n            batched=True,\n            with_indices=True,\n            remove_columns=dataset.column_names,\n            load_from_cache_file=False,\n        )\n",
+      "doc_to_text": "def doc_to_text(doc):\n    return doc[\"cce_query\"]\n",
+      "doc_to_target": "def doc_to_target(doc):\n    return int(doc[\"cce_gold\"])\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def doc_to_choice(doc):\n    return doc[\"cce_letters\"]\n",
+      "process_results": "def process_results_cce(doc, results):\n    \"\"\"Per-item metrics; NaN marks metrics that do not apply to this regime.\n\n    acc_gold_removed        A_GR (equals the NOTA selection rate in GR)\n    acc_distractor_removed  A_DR\n    nota_rate_distractor    NOTA chosen although the gold is present\n    other_distractor_rate   DR items where a remaining wrong option was chosen\n    gold_removed_share      realised GR fraction\n    \"\"\"\n    pred = _pred(results, doc)\n    gold = int(doc[\"cce_gold\"])\n    nota = len(doc[\"cce_choices\"]) - 1  # NOTA is always the last option\n    gr = doc[\"cce_regime\"] == \"gold_removed\"\n    nan = float(\"nan\")\n    acc = float(pred == gold)\n    return {\n        \"acc\": acc,\n        \"acc_gold_removed\": acc if gr else nan,\n        \"acc_distractor_removed\": nan if gr else acc,\n        \"nota_rate_distractor\": nan if gr else float(pred == nota),\n        \"other_distractor_rate\": nan if gr else float(pred not in (gold, nota)),\n        \"gold_removed_share\": float(gr),\n    }\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": "train",
+        "process_docs": "<function _make_exhaustive.<locals>.process_docs>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function doc_to_text>",
+        "doc_to_choice": "<function doc_to_choice>",
+        "doc_to_target": "<function doc_to_target>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "acc_gold_removed",
+          "aggregation": "def nanmean(items):\n    arr = np.asarray(items, dtype=float)\n    if arr.size == 0 or np.all(np.isnan(arr)):\n        return float(\"nan\")\n    return float(np.nanmean(arr))\n",
+          "higher_is_better": true
+        },
+        {
+          "metric": "acc_distractor_removed",
+          "aggregation": "def nanmean(items):\n    arr = np.asarray(items, dtype=float)\n    if arr.size == 0 or np.all(np.isnan(arr)):\n        return float(\"nan\")\n    return float(np.nanmean(arr))\n",
+          "higher_is_better": true
+        },
+        {
+          "metric": "nota_rate_distractor",
+          "aggregation": "def nanmean(items):\n    arr = np.asarray(items, dtype=float)\n    if arr.size == 0 or np.all(np.isnan(arr)):\n        return float(\"nan\")\n    return float(np.nanmean(arr))\n",
+          "higher_is_better": false
+        },
+        {
+          "metric": "other_distractor_rate",
+          "aggregation": "def nanmean(items):\n    arr = np.asarray(items, dtype=float)\n    if arr.size == 0 or np.all(np.isnan(arr)):\n        return float(\"nan\")\n    return float(np.nanmean(arr))\n",
+          "higher_is_better": false
+        },
+        {
+          "metric": "gold_removed_share",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 4.0,
+        "pretrained": "mistralai/Mistral-7B-Instruct-v0.3",
+        "parallelize": true,
+        "attn_implementation": "sdpa",
+        "dtype": "float32",
+        "config_source": "tasks/cce_mcf/winogrande_mcf_exh.yaml"
+      }
+    }
+  },
+  "versions": {
+    "arc_challenge_mcf_exh": 4.0,
+    "winogrande_mcf_exh": 4.0
+  },
+  "n-shot": {
+    "arc_challenge_mcf_exh": 0,
+    "winogrande_mcf_exh": 0
+  },
+  "higher_is_better": {
+    "arc_challenge_mcf_exh": {
+      "acc": true,
+      "acc_gold_removed": true,
+      "acc_distractor_removed": true,
+      "nota_rate_distractor": false,
+      "other_distractor_rate": false,
+      "gold_removed_share": true
+    },
+    "winogrande_mcf_exh": {
+      "acc": true,
+      "acc_gold_removed": true,
+      "acc_distractor_removed": true,
+      "nota_rate_distractor": false,
+      "other_distractor_rate": false,
+      "gold_removed_share": true
+    }
+  },
+  "n-samples": {
+    "arc_challenge_mcf_exh": {
+      "original": 4687,
+      "effective": 4687
+    },
+    "winogrande_mcf_exh": {
+      "original": 2534,
+      "effective": 2534
+    }
+  },
+  "config": {
+    "model": "hf",
+    "model_args": {
+      "pretrained": "mistralai/Mistral-7B-Instruct-v0.3",
+      "parallelize": true,
+      "attn_implementation": "sdpa",
+      "dtype": "float32"
+    },
+    "model_num_parameters": 7248023552,
+    "model_dtype": "torch.float32",
+    "model_revision": "main",
+    "model_sha": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+    "batch_size": "8",
+    "batch_sizes": [],
+    "device": "cuda",
+    "use_cache": null,
+    "limit": null,
+    "bootstrap_iters": 100000,
+    "gen_kwargs": {},
+    "random_seed": 0,
+    "numpy_seed": 0,
+    "torch_seed": 0,
+    "fewshot_seed": 1234
+  },
+  "date": 1793987954.7154586,
+  "transformers_version": "5.20.1",
+  "lm_eval_version": "0.4.13",
+  "tokenizer_pad_token": [
+    "<unk>",
+    "0"
+  ],
+  "tokenizer_eos_token": [
+    "</s>",
+    "2"
+  ],
+  "tokenizer_bos_token": [
+    "<s>",
+    "1"
+  ],
+  "eot_token_id": 2,
+  "max_length": 32768,
+  "task_hashes": {
+    "arc_challenge_mcf_exh": "71ba96c5a4ad0e21ff9520e25d0317a2320c0358b165fac7930c7b36ea4cd8d3",
+    "winogrande_mcf_exh": "575fcc89354d643c5bfc9078d52ea2d85388aac0ff98ecd757d900741ba01532"
+  },
+  "model_source": "hf",
+  "model_name": "mistralai/Mistral-7B-Instruct-v0.3",
+  "model_name_sanitized": "mistralai__Mistral-7B-Instruct-v0.3",
+  "system_instruction": null,
+  "system_instruction_sha": null,
+  "fewshot_as_multiturn": null,
+  "chat_template": null,
+  "chat_template_sha": null,
+  "total_evaluation_time_seconds": "443.8245766037144"
+}

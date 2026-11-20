@@ -1,95 +1,57 @@
 #!/bin/bash
-# Robustness checks (Section 4.5): ARC-Challenge and WinoGrande, 0-shot, orig + exhaustive.
+# Robustness checks (Sections 4.3 and 4.5): 0-shot Orig and exhaustive CCE on
+# ARC and WinoGrande, changing one factor at a time.
 #
-# Usage:
-#   bash scripts/run_robustness.sh <chat|fp32|wording> [output-root]
+# Usage (from the repository root):
+#   bash scripts/run_robustness.sh chat    results/robustness_runs/chat     # native chat template
+#   bash scripts/run_robustness.sh fp32    results/robustness_runs/fp32     # float32 instead of bfloat16
+#   bash scripts/run_robustness.sh wording results/robustness_runs/wording  # "None of these options is correct"
+#   bash scripts/run_robustness.sh nobos   results/robustness_runs/no_bos   # no BOS token (Llama-3.2-1B)
 #
-#   chat     native chat templates, bfloat16 (four instruction-tuned models)
-#   fp32     plain prompt, float32 scoring (same four models)
-#   wording  NOTA replaced by "None of these options is correct" (three models)
+# Then compare with the main results:
+#   python analysis/paired_analysis.py --root results/robustness_runs/chat --out cce_chat.csv
+#   python analysis/compare_runs.py --base results/tables/cce_tables_final.csv --new cce_chat.csv
 #
-# Everything else matches scripts/run_cce.sh, so only the factor under test changes.
-# Afterwards:
-#   python analysis/paired_analysis.py --root <output-root> --out <mode>.csv
-#   python analysis/compare_runs.py --base results/cce_tables.csv --new <mode>.csv
+# For the chat mode, Qwen3.5's chat template opens a <think> block. Create a
+# tokenizer copy whose template closes it first:
+#   python scripts/make_qwen_nothink_tok.py --out qwen35_4b_nothink_tok
+# and point QWEN_NOTHINK_TOK at that folder (default: ./qwen35_4b_nothink_tok).
 #
-# Chat mode and Qwen3.5: the Qwen3.5 chat template opens a <think> block. Run
-# `python scripts/make_qwen_nothink_tok.py --out <dir>` once and set
-# QWEN_NOTHINK_TOK=<dir> so the block is closed before the answer letter.
-#
-# Environment variables: MODELS_OVERRIDE (space-separated model ids), REVISION
-# (pin a commit; use with a single model in MODELS_OVERRIDE), BATCH_SIZE,
-# PARALLELIZE, PARALLELIZE_FP32, DTYPE_FP32, LIMIT, LAUNCH (see run_cce.sh).
+# Same optional variables as run_cce.sh (BATCH_SIZE, PARALLELIZE, LAUNCH, LIMIT).
+# MODELS_OVERRIDE="org/model ..." replaces the default model list.
 
 set -uo pipefail
+MODE="${1:?usage: run_robustness.sh <chat|fp32|wording|nobos> <output-root>}"
+OUTROOT="${2:?usage: run_robustness.sh <chat|fp32|wording|nobos> <output-root>}"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+QWEN_NOTHINK_TOK="${QWEN_NOTHINK_TOK:-${PWD}/qwen35_4b_nothink_tok}"
 
-MODE="${1:?usage: run_robustness.sh <chat|fp32|wording> [output-root]}"
-OUTROOT="${2:-outputs/robustness/${MODE}}"
-REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-TASK_DIR="${REPO}/tasks/cce_mcf"
-
-LIMIT="${LIMIT:-}"
-LAUNCH="${LAUNCH:-}"
-BATCH_SIZE="${BATCH_SIZE:-8}"
-PARALLELIZE="${PARALLELIZE:-False}"
-DTYPE="bfloat16"
-EXTRA=()
 IT_MODELS="meta-llama/Llama-3.2-3B-Instruct mistralai/Mistral-7B-Instruct-v0.3 Qwen/Qwen3.5-4B google/gemma-4-12B-it"
-QWEN_NOTHINK_TOK="${QWEN_NOTHINK_TOK:-}"
-REVISION="${REVISION:-}"
 
 case "${MODE}" in
-  chat)
-    MODELS="${MODELS_OVERRIDE:-${IT_MODELS}}"
-    EXTRA+=(--apply_chat_template) ;;
-  fp32)
-    MODELS="${MODELS_OVERRIDE:-${IT_MODELS}}"
-    DTYPE="${DTYPE_FP32:-float32}"
-    PARALLELIZE="${PARALLELIZE_FP32:-True}" ;;  # float32 doubles memory
-  wording)
-    MODELS="${MODELS_OVERRIDE:-meta-llama/Llama-3.2-3B-Instruct mistralai/Mistral-7B-v0.3 google/gemma-4-31B}"
-    export CCE_NOTA="None of these options is correct" ;;  # read by tasks/cce_mcf/utils.py
-  *) echo "unknown mode ${MODE}; use chat, fp32 or wording"; exit 1 ;;
+  chat)    MODELS="${MODELS_OVERRIDE:-${IT_MODELS}}"
+           export EXTRA_LM_EVAL_ARGS="--apply_chat_template" ;;
+  fp32)    MODELS="${MODELS_OVERRIDE:-${IT_MODELS}}"
+           export DTYPE=float32 ;;
+  wording) MODELS="${MODELS_OVERRIDE:-meta-llama/Llama-3.2-3B-Instruct mistralai/Mistral-7B-v0.3 google/gemma-4-31B}"
+           export CCE_NOTA="None of these options is correct" ;;
+  nobos)   MODELS="${MODELS_OVERRIDE:-meta-llama/Llama-3.2-1B}"
+           export ADD_BOS=False ;;
+  *) echo "unknown mode ${MODE}; use chat, fp32, wording or nobos"; exit 1 ;;
 esac
-[[ -n "${LIMIT}" ]] && EXTRA+=(--limit "${LIMIT}")
 
-export CCE_FEWSHOT_SEED=1234
-export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
-mkdir -p "${OUTROOT}"
-MANIFEST="${OUTROOT}/run_manifest.txt"
-{
-  echo "=== $(date -Iseconds) ==="
-  echo "mode=${MODE} revision=${REVISION:-latest} dtype=${DTYPE} batch_size=${BATCH_SIZE} parallelize=${PARALLELIZE} limit=${LIMIT:-none} nota=${CCE_NOTA:-default}"
-  nvidia-smi --query-gpu=name,memory.total --format=csv,noheader 2>/dev/null || true
-} 2>&1 | tee -a "${MANIFEST}"
-
+# Only the 0-shot Orig and exhaustive runs, only ARC and WinoGrande.
+export SHOTS_LIST=0 RUN_CCE=0 DATASETS="arc_challenge winogrande"
 FAILED=()
 for MODEL in ${MODELS}; do
-  MARGS="pretrained=${MODEL},parallelize=${PARALLELIZE},attn_implementation=sdpa,dtype=${DTYPE}"
-  [[ -n "${REVISION}" ]] && MARGS+=",revision=${REVISION}"
+  EXTRA_ARGS_SAVED="${EXTRA_MODEL_ARGS:-}"
   if [[ "${MODE}" == chat && "${MODEL}" == Qwen/* ]]; then
-    if [[ -z "${QWEN_NOTHINK_TOK}" ]]; then
-      echo "!!! set QWEN_NOTHINK_TOK (see header) before running ${MODEL} in chat mode"
-      FAILED+=("${MODEL}"); continue
-    fi
-    MARGS+=",tokenizer=${QWEN_NOTHINK_TOK}"
+    export EXTRA_MODEL_ARGS="${EXTRA_ARGS_SAVED},tokenizer=${QWEN_NOTHINK_TOK}"
   fi
-  for KIND in orig exh; do
-    echo "=== ${MODE} ${MODEL} ${KIND} ==="
-    if ! CCE_SEED=0 ${LAUNCH} python3 -m lm_eval \
-        --model hf \
-        --model_args "${MARGS}" \
-        --include_path "${TASK_DIR}" \
-        --tasks "arc_challenge_mcf_${KIND},winogrande_mcf_${KIND}" \
-        --device cuda --batch_size "${BATCH_SIZE}" --num_fewshot 0 \
-        --seed 0,0,0,1234 \
-        --output_path "${OUTROOT}/${MODEL}/${KIND}_0shot" --log_samples \
-        "${EXTRA[@]+"${EXTRA[@]}"}"; then
-      echo "!!! ${MODEL} ${KIND} FAILED"; FAILED+=("${MODEL}/${KIND}")
-    fi
-    echo "${MODEL} ${KIND} finished $(date -Iseconds)" >> "${MANIFEST}"
-  done
+  bash "${REPO_ROOT}/scripts/run_cce.sh" "${MODEL}" "${OUTROOT}" \
+    || FAILED+=("${MODEL}")
+  export EXTRA_MODEL_ARGS="${EXTRA_ARGS_SAVED}"
 done
 
 if (( ${#FAILED[@]} )); then echo "Finished with failures: ${FAILED[*]}"; exit 1; fi
-echo "All runs finished. Results in ${OUTROOT}"
+echo "All ${MODE} runs finished. Results in ${OUTROOT}"

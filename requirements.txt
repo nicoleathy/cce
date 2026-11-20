@@ -1,6 +1,7 @@
+# Versions used for the paper's runs
 lm_eval==0.4.13
 transformers==5.20.1
-torch
+torch>=2.4
 accelerate
 datasets
 numpy

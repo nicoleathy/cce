@@ -1,0 +1,7 @@
+include: _cloze_template_yaml
+task: hellaswag_cloze_cce
+tag: cloze_cce
+dataset_path: Rowan/hellaswag
+training_split: train
+validation_split: validation
+process_docs: !function utils.hellaswag_process_docs

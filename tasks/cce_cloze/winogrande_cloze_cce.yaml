@@ -1,0 +1,8 @@
+include: _cloze_template_yaml
+task: winogrande_cloze_cce
+tag: cloze_cce
+dataset_path: allenai/winogrande
+dataset_name: winogrande_xl
+training_split: train
+validation_split: validation
+process_docs: !function utils.winogrande_process_docs

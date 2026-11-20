@@ -1,0 +1,8 @@
+include: _cloze_template_yaml
+task: arc_challenge_cloze_cce
+tag: cloze_cce
+dataset_path: allenai/ai2_arc
+dataset_name: ARC-Challenge
+training_split: train
+test_split: test
+process_docs: !function utils.arc_process_docs

@@ -1,0 +1,215 @@
+{
+  "results": {
+    "arc_challenge_mcf_orig": {
+      "name": "arc_challenge_mcf_orig",
+      "alias": "arc_challenge_mcf_orig",
+      "sample_len": 1172,
+      "acc,none": 0.9232081911262798,
+      "acc_stderr,none": 0.007780881941960322,
+      "last_letter_rate,none": 0.23890784982935154,
+      "last_letter_rate_stderr,none": 0.012461071376316628
+    },
+    "winogrande_mcf_orig": {
+      "name": "winogrande_mcf_orig",
+      "alias": "winogrande_mcf_orig",
+      "sample_len": 1267,
+      "acc,none": 0.6456195737963694,
+      "acc_stderr,none": 0.013443314368356088,
+      "last_letter_rate,none": 0.500394632991318,
+      "last_letter_rate_stderr,none": 0.014052481306049512
+    }
+  },
+  "group_subtasks": {},
+  "configs": {
+    "arc_challenge_mcf_orig": {
+      "task": "arc_challenge_mcf_orig",
+      "dataset_path": "allenai/ai2_arc",
+      "dataset_name": "ARC-Challenge",
+      "training_split": "train",
+      "test_split": "test",
+      "fewshot_split": "train",
+      "process_docs": "    def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:\n        seed = _fewshot_seed() if _is_fewshot_split(dataset) else _eval_seed()\n\n        def _proc(doc, idx):\n            stem, options, gold = extract(doc)\n            j = _item_rng(seed, idx).randrange(len(options)) if cce else None\n            return _record(stem, options, gold, j, idx)\n\n        return dataset.map(_proc, with_indices=True, load_from_cache_file=False)\n",
+      "doc_to_text": "def doc_to_text(doc):\n    return doc[\"cce_query\"]\n",
+      "doc_to_target": "def doc_to_target(doc):\n    return int(doc[\"cce_gold\"])\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def doc_to_choice(doc):\n    return doc[\"cce_letters\"]\n",
+      "process_results": "def process_results_orig(doc, results):\n    \"\"\"acc, plus how often the LAST letter is picked when the last option is an\n    ordinary one. Compare with the CCE NOTA rates, where NOTA is always last,\n    to separate a NOTA preference from a last-position preference.\"\"\"\n    pred = _pred(results, doc)\n    return {\n        \"acc\": float(pred == int(doc[\"cce_gold\"])),\n        \"last_letter_rate\": float(pred == len(doc[\"cce_choices\"]) - 1),\n    }\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": "train",
+        "process_docs": "<function _make_single.<locals>.process_docs>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function doc_to_text>",
+        "doc_to_choice": "<function doc_to_choice>",
+        "doc_to_target": "<function doc_to_target>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "last_letter_rate",
+          "aggregation": "mean",
+          "higher_is_better": false
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 4.0,
+        "pretrained": "Qwen/Qwen3.5-4B",
+        "parallelize": true,
+        "attn_implementation": "sdpa",
+        "dtype": "float32",
+        "config_source": "tasks/cce_mcf/arc_challenge_mcf_orig.yaml"
+      }
+    },
+    "winogrande_mcf_orig": {
+      "task": "winogrande_mcf_orig",
+      "dataset_path": "allenai/winogrande",
+      "dataset_name": "winogrande_xl",
+      "training_split": "train",
+      "validation_split": "validation",
+      "fewshot_split": "train",
+      "process_docs": "    def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:\n        seed = _fewshot_seed() if _is_fewshot_split(dataset) else _eval_seed()\n\n        def _proc(doc, idx):\n            stem, options, gold = extract(doc)\n            j = _item_rng(seed, idx).randrange(len(options)) if cce else None\n            return _record(stem, options, gold, j, idx)\n\n        return dataset.map(_proc, with_indices=True, load_from_cache_file=False)\n",
+      "doc_to_text": "def doc_to_text(doc):\n    return doc[\"cce_query\"]\n",
+      "doc_to_target": "def doc_to_target(doc):\n    return int(doc[\"cce_gold\"])\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def doc_to_choice(doc):\n    return doc[\"cce_letters\"]\n",
+      "process_results": "def process_results_orig(doc, results):\n    \"\"\"acc, plus how often the LAST letter is picked when the last option is an\n    ordinary one. Compare with the CCE NOTA rates, where NOTA is always last,\n    to separate a NOTA preference from a last-position preference.\"\"\"\n    pred = _pred(results, doc)\n    return {\n        \"acc\": float(pred == int(doc[\"cce_gold\"])),\n        \"last_letter_rate\": float(pred == len(doc[\"cce_choices\"]) - 1),\n    }\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": "train",
+        "process_docs": "<function _make_single.<locals>.process_docs>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function doc_to_text>",
+        "doc_to_choice": "<function doc_to_choice>",
+        "doc_to_target": "<function doc_to_target>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "last_letter_rate",
+          "aggregation": "mean",
+          "higher_is_better": false
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 4.0,
+        "pretrained": "Qwen/Qwen3.5-4B",
+        "parallelize": true,
+        "attn_implementation": "sdpa",
+        "dtype": "float32",
+        "config_source": "tasks/cce_mcf/winogrande_mcf_orig.yaml"
+      }
+    }
+  },
+  "versions": {
+    "arc_challenge_mcf_orig": 4.0,
+    "winogrande_mcf_orig": 4.0
+  },
+  "n-shot": {
+    "arc_challenge_mcf_orig": 0,
+    "winogrande_mcf_orig": 0
+  },
+  "higher_is_better": {
+    "arc_challenge_mcf_orig": {
+      "acc": true,
+      "last_letter_rate": false
+    },
+    "winogrande_mcf_orig": {
+      "acc": true,
+      "last_letter_rate": false
+    }
+  },
+  "n-samples": {
+    "arc_challenge_mcf_orig": {
+      "original": 1172,
+      "effective": 1172
+    },
+    "winogrande_mcf_orig": {
+      "original": 1267,
+      "effective": 1267
+    }
+  },
+  "config": {
+    "model": "hf",
+    "model_args": {
+      "pretrained": "Qwen/Qwen3.5-4B",
+      "parallelize": true,
+      "attn_implementation": "sdpa",
+      "dtype": "float32"
+    },
+    "model_num_parameters": 4205751296,
+    "model_dtype": "torch.float32",
+    "model_revision": "main",
+    "model_sha": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "batch_size": "8",
+    "batch_sizes": [],
+    "device": "cuda",
+    "use_cache": null,
+    "limit": null,
+    "bootstrap_iters": 100000,
+    "gen_kwargs": {},
+    "random_seed": 0,
+    "numpy_seed": 0,
+    "torch_seed": 0,
+    "fewshot_seed": 1234
+  },
+  "date": 1793988414.326012,
+  "transformers_version": "5.20.1",
+  "lm_eval_version": "0.4.13",
+  "tokenizer_pad_token": [
+    "<|endoftext|>",
+    "248044"
+  ],
+  "tokenizer_eos_token": [
+    "<|im_end|>",
+    "248046"
+  ],
+  "tokenizer_bos_token": [
+    null,
+    "None"
+  ],
+  "eot_token_id": 248046,
+  "max_length": 262144,
+  "task_hashes": {
+    "arc_challenge_mcf_orig": "6b8100c62f4490113b32abbd737955ef4452714814299a5d028abcb0c76ae7db",
+    "winogrande_mcf_orig": "8dd7f61a757be5a7622188550dc4ac04fc9d77977fefcbaabcb1439d2aebe141"
+  },
+  "model_source": "hf",
+  "model_name": "Qwen/Qwen3.5-4B",
+  "model_name_sanitized": "Qwen__Qwen3.5-4B",
+  "system_instruction": null,
+  "system_instruction_sha": null,
+  "fewshot_as_multiturn": null,
+  "chat_template": null,
+  "chat_template_sha": null,
+  "total_evaluation_time_seconds": "200.56125777680427"
+}

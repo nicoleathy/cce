@@ -1,0 +1,7 @@
+include: _cloze_template_yaml
+task: piqa_cloze_cce
+tag: cloze_cce
+dataset_path: baber/piqa
+training_split: train
+validation_split: validation
+process_docs: !function utils.piqa_process_docs

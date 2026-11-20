@@ -4,10 +4,15 @@ Build every CCE table from the per-item sample logs, so all numbers in the
 paper come from one source.
 
 Usage:
-    python analysis/paired_analysis.py --root RESULTS_ROOT [--exclude results/coherence_flags.csv]
+    python analysis/paired_analysis.py --root RESULTS_ROOT [--exclude coherence_flags.csv]
                                        [--out cce_tables.csv] [--boot 2000]
 
-Expected layout (what scripts/run_cce.sh and scripts/run_robustness.sh write):
+The paper's tables come from
+    --root <main runs> --out cce_tables_final.csv
+    --root <main runs> --exclude results/tables/coherence_flags.csv --out cce_tables_final_filtered.csv
+
+RESULTS_ROOT must hold the per-item sample logs (--log_samples), laid out as
+scripts/run_cce.sh writes them:
     RESULTS_ROOT/<org>/<model>/<run>/<org__model>/samples_<task>_<timestamp>.jsonl
     <run> is orig_{S}shot, cce_{S}shot_seed{N} or exh_0shot
 
@@ -24,7 +29,7 @@ NOTA discrimination = P(NOTA | GR) - P(NOTA | DR). A model that picks NOTA
 from a fixed preference scores ~0 regardless of how often it picks NOTA; a
 model that tracks answer absence scores > 0.
 
-With --exclude, items flagged by coherence_flags.py (flippable == 0) are
+With --exclude, items flagged by analysis/coherence_flags.py (flippable == 0) are
 dropped from every setting, Orig included, so comparisons stay paired.
 """
 import argparse
